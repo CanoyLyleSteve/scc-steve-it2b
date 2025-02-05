@@ -41,7 +41,7 @@ public class registration extends javax.swing.JFrame {
         email = new javax.swing.JTextField();
         username1 = new javax.swing.JTextField();
         password2 = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        register = new javax.swing.JButton();
         cancel2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
@@ -118,10 +118,15 @@ public class registration extends javax.swing.JFrame {
         jPanel3.add(username1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 160, 30));
         jPanel3.add(password2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 280, 160, 30));
 
-        jButton1.setBackground(new java.awt.Color(0, 153, 51));
-        jButton1.setFont(new java.awt.Font("Arial", 3, 12)); // NOI18N
-        jButton1.setText("Register ");
-        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 343, 90, 30));
+        register.setBackground(new java.awt.Color(0, 153, 51));
+        register.setFont(new java.awt.Font("Arial", 3, 12)); // NOI18N
+        register.setText("Register ");
+        register.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registerActionPerformed(evt);
+            }
+        });
+        jPanel3.add(register, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 343, 90, 30));
 
         cancel2.setBackground(new java.awt.Color(204, 51, 0));
         cancel2.setFont(new java.awt.Font("Arial", 3, 12)); // NOI18N
@@ -157,6 +162,10 @@ public class registration extends javax.swing.JFrame {
        ln.setVisible(true);
        this.dispose();
     }//GEN-LAST:event_cancel2ActionPerformed
+
+    private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
+       
+    }//GEN-LAST:event_registerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -197,7 +206,6 @@ public class registration extends javax.swing.JFrame {
     private javax.swing.JButton cancel2;
     private javax.swing.JTextField email;
     private javax.swing.JTextField fname;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
@@ -210,6 +218,7 @@ public class registration extends javax.swing.JFrame {
     private javax.swing.JLabel lastname4;
     private javax.swing.JTextField lname;
     private javax.swing.JPasswordField password2;
+    private javax.swing.JButton register;
     private javax.swing.JTextField username1;
     // End of variables declaration//GEN-END:variables
 }
