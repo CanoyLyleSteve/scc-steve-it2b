@@ -37,9 +37,8 @@ public class login extends javax.swing.JFrame {
         tusername = new javax.swing.JTextField();
         fjpassword = new javax.swing.JPasswordField();
         reg = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,7 +56,7 @@ public class login extends javax.swing.JFrame {
         login.setBackground(new java.awt.Color(0, 153, 0));
         login.setFont(new java.awt.Font("Arial", 3, 12)); // NOI18N
         login.setText("Log in");
-        nvg.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 80, 30));
+        nvg.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 80, 30));
 
         cancel.setBackground(new java.awt.Color(255, 51, 51));
         cancel.setFont(new java.awt.Font("Arial", 3, 12)); // NOI18N
@@ -67,17 +66,17 @@ public class login extends javax.swing.JFrame {
                 cancelActionPerformed(evt);
             }
         });
-        nvg.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, -1, 30));
+        nvg.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, 30));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Password:");
-        nvg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 100, 30));
+        nvg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 100, 30));
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("UserName:");
-        nvg.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 80, 20));
+        nvg.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 80, 20));
 
         tusername.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         tusername.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -86,8 +85,10 @@ public class login extends javax.swing.JFrame {
                 tusernameActionPerformed(evt);
             }
         });
-        nvg.add(tusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 160, 30));
-        nvg.add(fjpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 160, 30));
+        nvg.add(tusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 160, 30));
+
+        fjpassword.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        nvg.add(fjpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 160, 30));
 
         reg.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
         reg.setText("New user? Click Here to register?");
@@ -96,24 +97,18 @@ public class login extends javax.swing.JFrame {
                 regMouseClicked(evt);
             }
         });
-        nvg.add(reg, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 240, 190, 20));
+        nvg.add(reg, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, 190, 20));
 
-        jDesktopPane1.add(nvg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 430, 390));
-
-        jPanel2.setBackground(new java.awt.Color(153, 255, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel4.setFont(new java.awt.Font("Arial", 2, 18)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("WELCOME TO MY SYSTEM!");
-        jLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 60));
-
-        jDesktopPane1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, 60));
+        jDesktopPane1.add(nvg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 450));
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/asssss-removebg-preview.png"))); // NOI18N
-        jDesktopPane1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, 400, 390));
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/grin-removebg-preview.png"))); // NOI18N
+        jDesktopPane1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 830, 130));
+
+        jLabel9.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Captureaw-removebg-preview.png"))); // NOI18N
+        jDesktopPane1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, -70, 530, 500));
 
         jPanel1.add(jDesktopPane1);
         jDesktopPane1.setBounds(0, 0, 840, 450);
@@ -128,7 +123,7 @@ public class login extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
         );
 
         pack();
@@ -189,11 +184,10 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JPasswordField fjpassword;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JButton login;
     private javax.swing.JPanel nvg;
     private javax.swing.JLabel reg;
