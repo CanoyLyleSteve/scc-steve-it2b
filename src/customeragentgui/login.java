@@ -1,10 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package customeragentgui;
 
+package customeragentgui;
+import admin.adminDashboard;
+import admin.userDashboard;
+import config.dbConnect;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 /**
  *
  * @author User
@@ -16,6 +17,26 @@ public class login extends javax.swing.JFrame {
      */
     public login() {
         initComponents();
+    }   
+        static String status;
+        static String type;
+       public static boolean loginAcc(String username, String password){
+        dbConnect connect = new dbConnect();
+        try{
+            String query = "SELECT * FROM users  WHERE u_usname = '" + username + "' AND u_password1 = '" + password + "'";
+            ResultSet resultSet = connect.getData(query);
+           if(resultSet.next()){
+               status = resultSet.getString("u_status");
+               type = resultSet.getString("u_ty");
+               return true;
+           }else{
+               return false;
+           }
+        }catch (SQLException ex) {
+            return false;
+        }
+
+    
     }
 
     /**
@@ -34,11 +55,11 @@ public class login extends javax.swing.JFrame {
         cancel = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        tusername = new javax.swing.JTextField();
+        username = new javax.swing.JTextField();
         fjpassword = new javax.swing.JPasswordField();
         reg = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,66 +70,70 @@ public class login extends javax.swing.JFrame {
         jDesktopPane1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDesktopPane1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        nvg.setBackground(new java.awt.Color(102, 0, 102));
-        nvg.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Login Form", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 2, 24))); // NOI18N
+        nvg.setBackground(new java.awt.Color(51, 51, 51));
+        nvg.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Login Form", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Wide Latin", 2, 48), new java.awt.Color(204, 204, 204))); // NOI18N
         nvg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         login.setBackground(new java.awt.Color(0, 153, 0));
-        login.setFont(new java.awt.Font("Arial", 3, 12)); // NOI18N
+        login.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
         login.setText("Log in");
-        nvg.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 80, 30));
+        login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginActionPerformed(evt);
+            }
+        });
+        nvg.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 250, 70, 30));
 
         cancel.setBackground(new java.awt.Color(255, 51, 51));
-        cancel.setFont(new java.awt.Font("Arial", 3, 12)); // NOI18N
+        cancel.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
         cancel.setText("Cancel");
         cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelActionPerformed(evt);
             }
         });
-        nvg.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, 30));
+        nvg.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 250, -1, 30));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Password:");
-        nvg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 100, 30));
+        nvg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, 100, 30));
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("UserName:");
-        nvg.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 80, 20));
+        jLabel5.setText("Username:");
+        nvg.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 80, 20));
 
-        tusername.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        tusername.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        tusername.addActionListener(new java.awt.event.ActionListener() {
+        username.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        username.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tusernameActionPerformed(evt);
+                usernameActionPerformed(evt);
             }
         });
-        nvg.add(tusername, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, 160, 30));
+        nvg.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 160, 160, 30));
 
         fjpassword.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        nvg.add(fjpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, 160, 30));
+        nvg.add(fjpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 200, 160, 30));
 
-        reg.setFont(new java.awt.Font("Arial", 2, 12)); // NOI18N
+        reg.setBackground(new java.awt.Color(0, 153, 0));
+        reg.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
         reg.setText("New user? Click Here to register?");
         reg.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 regMouseClicked(evt);
             }
         });
-        nvg.add(reg, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, 190, 20));
+        nvg.add(reg, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, 240, 20));
 
-        jDesktopPane1.add(nvg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 290, 450));
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/deee-removebg-preview (1).png"))); // NOI18N
+        nvg.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, 140, 100));
 
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/grin-removebg-preview.png"))); // NOI18N
-        jDesktopPane1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 830, 130));
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Capture_1.JPG"))); // NOI18N
+        jLabel8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        nvg.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 830, 410));
 
-        jLabel9.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Captureaw-removebg-preview.png"))); // NOI18N
-        jDesktopPane1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, -70, 530, 500));
+        jDesktopPane1.add(nvg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 460));
 
         jPanel1.add(jDesktopPane1);
         jDesktopPane1.setBounds(0, 0, 840, 450);
@@ -117,25 +142,24 @@ public class login extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 832, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 832, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tusernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tusernameActionPerformed
+    private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tusernameActionPerformed
+    }//GEN-LAST:event_usernameActionPerformed
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
-        // TODO add your handling code here:
+        System.exit(0);
+        this.dispose();
     }//GEN-LAST:event_cancelActionPerformed
 
     private void regMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regMouseClicked
@@ -143,6 +167,30 @@ public class login extends javax.swing.JFrame {
         rf.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_regMouseClicked
+
+    private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
+              if(loginAcc(username.getText(),fjpassword.getText())){
+              if(!status.equals("Active")){
+           JOptionPane.showMessageDialog(null,"In-Active Account, Contact the Admin!");
+              }else{
+           JOptionPane.showMessageDialog(null,"Login Success!");
+            if(type.equals("Admin")){
+           adminDashboard ads=new adminDashboard();
+           ads.setVisible(true);
+           this.dispose();
+              }else if(type.equals("User")){
+               userDashboard usd = new userDashboard();
+               usd.setVisible(true);
+               this.dispose();
+              }else{
+                JOptionPane.showMessageDialog(null,"No Account type found, Contact the Admin");
+              }
+              }
+       }else{
+            JOptionPane.showMessageDialog(null,"Login Failed!");
+           
+       }
+    }//GEN-LAST:event_loginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,13 +232,13 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JPasswordField fjpassword;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton login;
     private javax.swing.JPanel nvg;
     private javax.swing.JLabel reg;
-    private javax.swing.JTextField tusername;
+    private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 }
