@@ -95,6 +95,7 @@ public class userDashboard extends javax.swing.JFrame {
         getContentPane().add(nvg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 520));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
