@@ -1,7 +1,8 @@
 
 package customeragentgui;
 import admin.adminDashboard;
-import admin.userDashboard;
+import user.userdashboard;
+import config.Session;
 import config.dbConnect;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,12 +23,22 @@ public class login extends javax.swing.JFrame {
         static String type;
        public static boolean loginAcc(String username, String password){
         dbConnect connect = new dbConnect();
+        
         try{
             String query = "SELECT * FROM users  WHERE u_usname = '" + username + "' AND u_password1 = '" + password + "'";
             ResultSet resultSet = connect.getData(query);
            if(resultSet.next()){
                status = resultSet.getString("u_status");
                type = resultSet.getString("u_ty");
+                   Session sess= Session.getInstance();
+                  sess.setUid(resultSet.getInt("u_id"));
+                  sess.setFname(resultSet.getString("u_fname"));
+                  sess.setLname(resultSet.getString("u_lname"));
+                  sess.setEmail(resultSet.getString("u_email"));
+                  sess.setTy(resultSet.getString("u_ty"));
+                  sess.setUsername(resultSet.getString("u_usname"));
+                  sess.setStatus(resultSet.getString("u_status"));
+ 
                return true;
            }else{
                return false;
@@ -59,7 +70,6 @@ public class login extends javax.swing.JFrame {
         fjpassword = new javax.swing.JPasswordField();
         reg = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,8 +80,8 @@ public class login extends javax.swing.JFrame {
         jDesktopPane1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jDesktopPane1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        nvg.setBackground(new java.awt.Color(51, 51, 51));
-        nvg.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Login Form", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Wide Latin", 2, 48), new java.awt.Color(204, 204, 204))); // NOI18N
+        nvg.setBackground(new java.awt.Color(255, 255, 255));
+        nvg.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Login Form", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Wide Latin", 2, 48))); // NOI18N
         nvg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         login.setBackground(new java.awt.Color(0, 153, 0));
@@ -82,7 +92,7 @@ public class login extends javax.swing.JFrame {
                 loginActionPerformed(evt);
             }
         });
-        nvg.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 250, 70, 30));
+        nvg.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 210, 70, 30));
 
         cancel.setBackground(new java.awt.Color(255, 51, 51));
         cancel.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
@@ -92,17 +102,17 @@ public class login extends javax.swing.JFrame {
                 cancelActionPerformed(evt);
             }
         });
-        nvg.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 250, -1, 30));
+        nvg.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, -1, 30));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Password:");
-        nvg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, 100, 30));
+        nvg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 100, 30));
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Username:");
-        nvg.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 80, 20));
+        nvg.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 80, 20));
 
         username.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         username.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -111,10 +121,10 @@ public class login extends javax.swing.JFrame {
                 usernameActionPerformed(evt);
             }
         });
-        nvg.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 160, 160, 30));
+        nvg.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, 160, 30));
 
         fjpassword.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        nvg.add(fjpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 200, 160, 30));
+        nvg.add(fjpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, 160, 30));
 
         reg.setBackground(new java.awt.Color(0, 153, 0));
         reg.setFont(new java.awt.Font("Arial", 3, 14)); // NOI18N
@@ -124,16 +134,12 @@ public class login extends javax.swing.JFrame {
                 regMouseClicked(evt);
             }
         });
-        nvg.add(reg, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, 240, 20));
+        nvg.add(reg, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, 240, 20));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/deee-removebg-preview (1).png"))); // NOI18N
-        nvg.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 50, 140, 100));
+        nvg.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 40, 140, 100));
 
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Capture_1.JPG"))); // NOI18N
-        jLabel8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        nvg.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 830, 410));
-
-        jDesktopPane1.add(nvg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 460));
+        jDesktopPane1.add(nvg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 840, 380));
 
         jPanel1.add(jDesktopPane1);
         jDesktopPane1.setBounds(0, 0, 840, 450);
@@ -146,12 +152,18 @@ public class login extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 372, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void regMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regMouseClicked
+        registration rf = new registration();
+        rf.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_regMouseClicked
 
     private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
         // TODO add your handling code here:
@@ -162,34 +174,28 @@ public class login extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_cancelActionPerformed
 
-    private void regMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_regMouseClicked
-        registration rf = new registration();
-        rf.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_regMouseClicked
-
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
-              if(loginAcc(username.getText(),fjpassword.getText())){
-              if(!status.equals("Active")){
-           JOptionPane.showMessageDialog(null,"In-Active Account, Contact the Admin!");
-              }else{
-           JOptionPane.showMessageDialog(null,"Login Success!");
-            if(type.equals("Admin")){
-           adminDashboard ads=new adminDashboard();
-           ads.setVisible(true);
-           this.dispose();
-              }else if(type.equals("User")){
-               userDashboard usd = new userDashboard();
-               usd.setVisible(true);
-               this.dispose();
-              }else{
-                JOptionPane.showMessageDialog(null,"No Account type found, Contact the Admin");
-              }
-              }
-       }else{
+        if(loginAcc(username.getText(),fjpassword.getText())){
+            if(!status.equals("Active")){
+                JOptionPane.showMessageDialog(null,"In-Active Account, Contact the Admin!");
+            }else{
+                JOptionPane.showMessageDialog(null,"Login Success!");
+                if(type.equals("Admin")){
+                    adminDashboard ads=new adminDashboard();
+                    ads.setVisible(true);
+                    this.dispose();
+                }else if(type.equals("User")){
+                    userdashboard usd = new userdashboard();
+                    usd.setVisible(true);
+                    this.dispose();
+                }else{
+                    JOptionPane.showMessageDialog(null,"No Account type found, Contact the Admin");
+                }
+            }
+        }else{
             JOptionPane.showMessageDialog(null,"Login Failed!");
-           
-       }
+
+        }
     }//GEN-LAST:event_loginActionPerformed
 
     /**
@@ -234,7 +240,6 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton login;
     private javax.swing.JPanel nvg;

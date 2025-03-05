@@ -5,6 +5,7 @@
  */
 package admin;
 
+import config.Session;
 import customeragentgui.login;
 import javax.swing.JOptionPane;
 
@@ -33,14 +34,21 @@ public class adminDashboard extends javax.swing.JFrame {
         nvg = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        acc_lname = new javax.swing.JLabel();
+        acc_name = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         nvg1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         nvg.setBackground(new java.awt.Color(0, 0, 0));
@@ -54,7 +62,17 @@ public class adminDashboard extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/watig-removebg-preview.png"))); // NOI18N
         jLabel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        nvg.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 200, 170));
+        nvg.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 210, 170));
+
+        acc_lname.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        acc_lname.setForeground(new java.awt.Color(255, 255, 255));
+        acc_lname.setText("ADMIN");
+        nvg.add(acc_lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 50, 40));
+
+        acc_name.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        acc_name.setForeground(new java.awt.Color(255, 255, 255));
+        acc_name.setText("ADMIN");
+        nvg.add(acc_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 50, 40));
 
         getContentPane().add(nvg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 470));
 
@@ -73,42 +91,31 @@ public class adminDashboard extends javax.swing.JFrame {
                 jLabel5MouseClicked(evt);
             }
         });
-        nvg1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, 180, 50));
+        nvg1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, 180, 50));
+
+        jLabel4.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lock-removebg-preview.png"))); // NOI18N
+        nvg1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, 20, 20));
 
         jPanel1.add(nvg1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 70));
 
-        jPanel2.setBackground(new java.awt.Color(153, 255, 255));
-        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel2MouseClicked(evt);
-            }
-        });
-
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel2.setText("CUSTOMERS");
+        jLabel2.setText("Customers  ");
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel2MouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel2);
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ccc-removebg-preview.png"))); // NOI18N
-        jPanel2.add(jLabel4);
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, 190, 210));
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hhh-removebg-preview.png"))); // NOI18N
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 20, 20));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 660, 470));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
-      customers cts = new customers();
-      cts.setVisible(true);
-      this.dispose();
-    }//GEN-LAST:event_jPanel2MouseClicked
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         login lgn = new login();
@@ -124,6 +131,21 @@ public class adminDashboard extends javax.swing.JFrame {
       this.dispose();
                       
     }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        Session sess = Session.getInstance();
+     
+        if(sess.getUid() == 0 ){
+            JOptionPane.showMessageDialog(null,"No account, Login First!");
+            login ln = new login();
+            ln.setVisible(true);
+            this.dispose();
+        }else{
+            acc_name.setText(""+sess.getFname());
+           acc_lname.setText(""+sess.getLname());
+        }
+       
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -161,13 +183,15 @@ public class adminDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel acc_lname;
+    private javax.swing.JLabel acc_name;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel nvg;
     private javax.swing.JPanel nvg1;
     // End of variables declaration//GEN-END:variables

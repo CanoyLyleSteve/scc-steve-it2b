@@ -168,7 +168,7 @@ public class registration extends javax.swing.JFrame {
                 registerActionPerformed(evt);
             }
         });
-        jPanel3.add(register, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 400, 90, 30));
+        jPanel3.add(register, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 380, 90, 30));
 
         cancel2.setBackground(new java.awt.Color(204, 51, 0));
         cancel2.setFont(new java.awt.Font("Arial", 3, 12)); // NOI18N
@@ -178,7 +178,7 @@ public class registration extends javax.swing.JFrame {
                 cancel2ActionPerformed(evt);
             }
         });
-        jPanel3.add(cancel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 400, 90, 30));
+        jPanel3.add(cancel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 380, 90, 30));
 
         lastname5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lastname5.setForeground(new java.awt.Color(255, 255, 255));
@@ -195,7 +195,7 @@ public class registration extends javax.swing.JFrame {
         lastname6.setText("Password");
         jPanel3.add(lastname6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 90, 40));
 
-        ty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User", "Customer" }));
+        ty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User", "Customer", "Nestea" }));
         ty.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tyActionPerformed(evt);
@@ -249,6 +249,21 @@ public class registration extends javax.swing.JFrame {
                || password1.getText().isEmpty()){
                 JOptionPane.showMessageDialog(null, "All field are required");
             return;
+       }
+       String contactPattern = "^[0-9]{11}$"; 
+    if (!contact1.getText().matches(contactPattern)) {
+        JOptionPane.showMessageDialog(null, "Invalid contact number. It must be exactly 11 digits and contain numbers only.");
+        contact1.setText(""); 
+        return;
+    }
+       
+       String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
+    if (!email.getText().matches(emailPattern)) {
+        JOptionPane.showMessageDialog(null, "Invalid email format. Please enter a valid email.");
+        email.setText(""); 
+        return;
+    
+        
         }else if(password1.getText().length()< 8){
         JOptionPane.showMessageDialog(null, "Password should have at least 8 characters");
         password1.setText("");
@@ -261,7 +276,7 @@ public class registration extends javax.swing.JFrame {
         dbConnect dbc = new dbConnect();
 if (dbc.insertData("INSERT INTO users (u_fname, u_lname, u_email, u_contact1, u_ty, u_usname, u_password1, u_status) "
     + "VALUES ('" + fname.getText() + "','" + lname.getText() + "','" + email.getText() + "',"
-    + "'" + contact1.getText() + "','" + ty.getSelectedItem() + "','" + usname.getText() + "','" + password1.getText() + "','Active')") > 0) {
+    + "'" + contact1.getText() + "','" + ty.getSelectedItem() + "','" + usname.getText() + "','" + password1.getText() + "','Active')")) {
 
     JOptionPane.showMessageDialog(null, "Registration Successful!");
     login lfr = new login();
@@ -269,62 +284,11 @@ if (dbc.insertData("INSERT INTO users (u_fname, u_lname, u_email, u_contact1, u_
     this.dispose();
 } else {
     JOptionPane.showMessageDialog(null, "Connection Error");
-}
- 
-                                               
-            if (!fname.getText().matches("[a-zA-Z]+") || !lname.getText().matches("[a-zA-Z]+")) {
-            JOptionPane.showMessageDialog(this, "First and Last names should contain only letters.", "Invalid Input", JOptionPane.WARNING_MESSAGE);
-            fname.setText("");
-            lname.setText("");
-            return;
-        }
-         String password = new String(password1.getPassword()); 
 
-        if (password.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Password cannot be empty!");
-        password1.setText("");
-        return;
-        }
-        String regex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
-        
-        if (!email.getText().matches(regex)) {
-        JOptionPane.showMessageDialog(null, "Invalid Email!");
-            email.setText("");
+}
            
-            return;
-    }
-        if (password.length() < 8) {
-        JOptionPane.showMessageDialog(null, "Password should have at least 8 characters");
-        password1.setText(""); 
-        return;
-         }
-           String contactNumber = (contact1.getText());
-           if (!contactNumber.matches("\\d+")) { 
-        JOptionPane.showMessageDialog(null, "Contact number must contain only numbers.", "Invalid Input", JOptionPane.WARNING_MESSAGE);
-        contact1.setText(""); 
-        return;
-         
-           } 
-           String username = usname.getText();
-        if (!username.matches("^[a-zA-Z0-9_]+$")) {
-        JOptionPane.showMessageDialog(null, "Username must be alphanumeric and cannot contain spaces.", "Invalid Input", JOptionPane.WARNING_MESSAGE);
-        usname.setText("");
-        return;
-    }
-            JOptionPane.showMessageDialog(null, "Registration Successful");
-            fname.setText("");
-            lname.setText("");
-            email.setText("");
-            contact1.setText("");
-            usname.setText("");
-            password1.setText("");
-             
-            
-            login lfe = new login(); 
-            lfe.setVisible(true); 
-            this.dispose();
-            
-        }
+} 
+        
     }//GEN-LAST:event_registerActionPerformed
 
     private void fnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fnameActionPerformed

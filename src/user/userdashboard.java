@@ -3,20 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package admin;
+package user;
 
+import config.Session;
 import customeragentgui.login;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author User
  */
-public class userDashboard extends javax.swing.JFrame {
+public class userdashboard extends javax.swing.JFrame {
 
-    /**
-     * Creates new form userDashboard
-     */
-    public userDashboard() {
+    
+    public userdashboard() {
         initComponents();
     }
 
@@ -38,8 +38,14 @@ public class userDashboard extends javax.swing.JFrame {
         nvg = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        acc_name = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
@@ -77,7 +83,7 @@ public class userDashboard extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, 190, 210));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 660, 520));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 660, 520));
 
         nvg.setBackground(new java.awt.Color(0, 0, 0));
         nvg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -86,11 +92,16 @@ public class userDashboard extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("USER DASHBOARD");
-        nvg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 50));
+        nvg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 200, 50));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/watig-removebg-preview.png"))); // NOI18N
         jLabel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         nvg.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 200, 170));
+
+        acc_name.setForeground(new java.awt.Color(255, 255, 255));
+        acc_name.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        acc_name.setText("USER");
+        nvg.add(acc_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 180, 40));
 
         getContentPane().add(nvg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 520));
 
@@ -102,12 +113,25 @@ public class userDashboard extends javax.swing.JFrame {
         login lgn = new login();
         lgn.setVisible(true);
         this.dispose();
-
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
-      
+
     }//GEN-LAST:event_jPanel2MouseClicked
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+         Session sess = Session.getInstance();
+     
+        if(sess.getUid() == 0 ){
+            JOptionPane.showMessageDialog(null,"No account, Login First!");
+            login ln = new login();
+            ln.setVisible(true);
+            this.dispose();
+        }else{
+            acc_name.setText(""+sess.getFname());
+           
+        }
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -126,25 +150,26 @@ public class userDashboard extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(userDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(userdashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(userDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(userdashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(userDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(userdashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(userDashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(userdashboard.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new userDashboard().setVisible(true);
+                new userdashboard().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel acc_name;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
