@@ -29,7 +29,7 @@ public class customers extends javax.swing.JFrame {
         
     }
           Color navcolor = new Color( 0,0,0);
-         Color havorcolor = new Color(0,102,51);
+         Color havorcolor = new Color(153,153,255);
         public void displayData(){
         try{
             dbConnect dbc = new dbConnect();
@@ -73,8 +73,8 @@ public class customers extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ccc-removebg-preview.png"))); // NOI18N
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 40, 190, 180));
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-customers-48.png"))); // NOI18N
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 50, 50));
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -86,7 +86,7 @@ public class customers extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("CUSTOMERS FORM");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 200, 50));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 10, 200, 50));
 
         jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -99,7 +99,7 @@ public class customers extends javax.swing.JFrame {
         });
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 10, 90, 50));
 
-        jPanel2.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
         jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         customertable.setModel(new javax.swing.table.DefaultTableModel(
@@ -136,7 +136,7 @@ public class customers extends javax.swing.JFrame {
         });
         p_add.setLayout(null);
 
-        jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("ADD");
@@ -164,7 +164,7 @@ public class customers extends javax.swing.JFrame {
         });
         edit1.setLayout(null);
 
-        edit.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        edit.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         edit.setForeground(new java.awt.Color(255, 255, 255));
         edit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         edit.setText("EDIT");

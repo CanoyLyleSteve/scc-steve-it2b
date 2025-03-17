@@ -32,16 +32,16 @@ public class adminDashboard extends javax.swing.JFrame {
     private void initComponents() {
 
         nvg = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        acc_lname = new javax.swing.JLabel();
         acc_name = new javax.swing.JLabel();
+        acc_lname = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         nvg1 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -51,39 +51,35 @@ public class adminDashboard extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        nvg.setBackground(new java.awt.Color(0, 0, 0));
+        nvg.setBackground(new java.awt.Color(255, 255, 255));
         nvg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("ADMIN DASHBOARD");
-        nvg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 50));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-admin-50.png"))); // NOI18N
+        nvg.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, 50));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/watig-removebg-preview.png"))); // NOI18N
-        jLabel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        nvg.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 210, 170));
-
-        acc_lname.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        acc_lname.setForeground(new java.awt.Color(255, 255, 255));
-        acc_lname.setText("ADMIN");
-        nvg.add(acc_lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 50, 40));
-
-        acc_name.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        acc_name.setForeground(new java.awt.Color(255, 255, 255));
+        acc_name.setBackground(new java.awt.Color(255, 255, 255));
+        acc_name.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
         acc_name.setText("ADMIN");
-        nvg.add(acc_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 50, 40));
+        nvg.add(acc_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, 40));
 
-        getContentPane().add(nvg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 470));
+        acc_lname.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
+        acc_lname.setText("USER");
+        nvg.add(acc_lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 50, 40));
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-log-out-30_1.png"))); // NOI18N
+        nvg.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 30, 30));
 
-        nvg1.setBackground(new java.awt.Color(0, 0, 0));
-        nvg1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jLabel2.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Customers  ");
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
+        nvg.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 181, 90, 30));
 
-        jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("LOGOUT");
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -91,38 +87,45 @@ public class adminDashboard extends javax.swing.JFrame {
                 jLabel5MouseClicked(evt);
             }
         });
-        nvg1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, 180, 50));
+        nvg.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 120, 30));
 
-        jLabel4.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lock-removebg-preview.png"))); // NOI18N
-        nvg1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, 20, 20));
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-customers-30.png"))); // NOI18N
+        nvg.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 30, 30));
+
+        getContentPane().add(nvg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 520));
+
+        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        nvg1.setBackground(new java.awt.Color(0, 0, 0));
+        nvg1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("ADMIN DASHBOARD");
+        nvg1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 200, 50));
 
         jPanel1.add(nvg1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 70));
 
-        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel2.setText("Customers  ");
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
-            }
-        });
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, -1, -1));
-
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/hhh-removebg-preview.png"))); // NOI18N
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 20, 20));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 0, 660, 470));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, 690, 520));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        int confirm = javax.swing.JOptionPane.showConfirmDialog(null, "Are you sure you want to log out?", "Logout", javax.swing.JOptionPane.YES_NO_OPTION);
+    
+    if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+
+        System.out.println("User logged out successfully."); 
+
         login lgn = new login();
         JOptionPane.showMessageDialog(null, "Logged-Out");
         lgn.setVisible(true);
         this.dispose();
-        
+    }  
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
@@ -188,9 +191,9 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel nvg;
     private javax.swing.JPanel nvg1;

@@ -58,7 +58,29 @@ public class dbConnect {
             return rst;
         }
 
-    
-    
-    
+    public Object getConnect() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+   
+
+    public PreparedStatement getPreparedStatement(String query) {
+        try {
+            if (connect != null) {
+                return connect.prepareStatement(query);
+            } else {
+                throw new SQLException("Database connection is null");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
+
+
+    
+    
+    
+    
+
