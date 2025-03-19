@@ -75,7 +75,7 @@ public class userdashboard extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel2.setText("CUSTOMERS");
+        jLabel2.setText("ACOUNTDETAILS");
         jPanel2.add(jLabel2);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ccc-removebg-preview.png"))); // NOI18N

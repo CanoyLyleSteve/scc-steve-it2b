@@ -80,6 +80,7 @@ public class registration extends javax.swing.JFrame {
         email = new javax.swing.JTextField();
         usname = new javax.swing.JTextField();
         register = new javax.swing.JButton();
+        Show = new javax.swing.JLabel();
         password1 = new javax.swing.JPasswordField();
         ty = new javax.swing.JComboBox<>();
         contact1 = new javax.swing.JTextField();
@@ -94,6 +95,8 @@ public class registration extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -161,6 +164,14 @@ public class registration extends javax.swing.JFrame {
         });
         jPanel3.add(register, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 420, 90, 30));
 
+        Show.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-hide-16.png"))); // NOI18N
+        Show.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ShowMouseClicked(evt);
+            }
+        });
+        jPanel3.add(Show, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 320, -1, 20));
+
         password1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         password1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 11))); // NOI18N
         jPanel3.add(password1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 310, 210, 40));
@@ -223,6 +234,12 @@ public class registration extends javax.swing.JFrame {
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/bckregister.jpg"))); // NOI18N
         jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 530));
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-password-24_1.png"))); // NOI18N
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 320, -1, -1));
+
+        jLabel12.setText("jLabel12");
+        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 320, -1, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 530));
 
@@ -325,6 +342,14 @@ public class registration extends javax.swing.JFrame {
                        
     }//GEN-LAST:event_cancelMouseClicked
 
+    private void ShowMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ShowMouseClicked
+         if (password1.getEchoChar() == '\u2022') { 
+        password1.setEchoChar((char) 0); 
+    } else {
+        password1.setEchoChar('\u2022'); 
+    }
+    }//GEN-LAST:event_ShowMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -361,12 +386,15 @@ public class registration extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Show;
     private javax.swing.JLabel cancel;
     private javax.swing.JTextField contact1;
     private javax.swing.JTextField email;
     private javax.swing.JTextField fname;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

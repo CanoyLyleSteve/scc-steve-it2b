@@ -28,6 +28,7 @@ public class login extends javax.swing.JFrame {
     public login() {
         initComponents();
     }   
+   
         Color hover = new Color(0,153,0);
         Color defbutton = new Color(255,255,255);
         Border empty = BorderFactory.createEmptyBorder();
@@ -46,6 +47,7 @@ public class login extends javax.swing.JFrame {
         static String type;
      
 public static boolean loginAcc(String username, String password) {
+    
     dbConnect connect = new dbConnect();
     try {
         
@@ -98,6 +100,7 @@ public static boolean loginAcc(String username, String password) {
         jDesktopPane1 = new javax.swing.JDesktopPane();
         nvg = new javax.swing.JPanel();
         login = new javax.swing.JButton();
+        Showhidepassword = new javax.swing.JLabel();
         username = new javax.swing.JTextField();
         fjpassword = new javax.swing.JPasswordField();
         reg = new javax.swing.JLabel();
@@ -142,6 +145,14 @@ public static boolean loginAcc(String username, String password) {
         });
         nvg.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, 100, 30));
 
+        Showhidepassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-hide-16.png"))); // NOI18N
+        Showhidepassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ShowhidepasswordMouseClicked(evt);
+            }
+        });
+        nvg.add(Showhidepassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 150, -1, 40));
+
         username.setFont(new java.awt.Font("Bell MT", 0, 14)); // NOI18N
         username.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         username.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Username", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 11))); // NOI18N
@@ -150,12 +161,12 @@ public static boolean loginAcc(String username, String password) {
                 usernameActionPerformed(evt);
             }
         });
-        nvg.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 210, 40));
+        nvg.add(username, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 100, 200, 40));
 
         fjpassword.setFont(new java.awt.Font("Bell MT", 0, 14)); // NOI18N
         fjpassword.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         fjpassword.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 11))); // NOI18N
-        nvg.add(fjpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 210, 40));
+        nvg.add(fjpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 200, 40));
 
         reg.setBackground(new java.awt.Color(0, 153, 0));
         reg.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
@@ -253,6 +264,16 @@ public static boolean loginAcc(String username, String password) {
    
     }//GEN-LAST:event_jLabel7MouseExited
 
+    private void ShowhidepasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ShowhidepasswordMouseClicked
+        if (fjpassword.getEchoChar() == '\u2022') { 
+        fjpassword.setEchoChar((char) 0); 
+    } else {
+        fjpassword.setEchoChar('\u2022'); 
+    }
+
+
+    }//GEN-LAST:event_ShowhidepasswordMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -289,6 +310,7 @@ public static boolean loginAcc(String username, String password) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Showhidepassword;
     private javax.swing.JPasswordField fjpassword;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;

@@ -110,6 +110,7 @@ public class createUserForm extends javax.swing.JFrame {
         email = new javax.swing.JTextField();
         ussname = new javax.swing.JTextField();
         add = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
         password1 = new javax.swing.JPasswordField();
         ty = new javax.swing.JComboBox<>();
         contact1 = new javax.swing.JTextField();
@@ -198,6 +199,14 @@ public class createUserForm extends javax.swing.JFrame {
             }
         });
         jPanel3.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 80, 30));
+
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-hide-16.png"))); // NOI18N
+        jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel14MouseClicked(evt);
+            }
+        });
+        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 360, 20, 30));
 
         password1.setFont(new java.awt.Font("Bell MT", 0, 11)); // NOI18N
         password1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -561,6 +570,14 @@ public class createUserForm extends javax.swing.JFrame {
           buttonDefualtColor(ref);
     }//GEN-LAST:event_refMouseExited
 
+    private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
+       if (password1.getEchoChar() == '\u2022') { 
+        password1.setEchoChar((char) 0); 
+    } else {
+        password1.setEchoChar('\u2022'); 
+    }
+    }//GEN-LAST:event_jLabel14MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -609,6 +626,7 @@ public class createUserForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
