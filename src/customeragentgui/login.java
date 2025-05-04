@@ -110,6 +110,7 @@ public static boolean loginAcc(String username, String password) {
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        forgot = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -143,7 +144,7 @@ public static boolean loginAcc(String username, String password) {
                 loginActionPerformed(evt);
             }
         });
-        nvg.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 200, 100, 30));
+        nvg.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, 100, 30));
 
         Showhidepassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-hide-16.png"))); // NOI18N
         Showhidepassword.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -184,7 +185,7 @@ public static boolean loginAcc(String username, String password) {
         nvg.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, 210, 40));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Black_and_White_Modern_Illustrative_Car_Rent_Logo__2_-removebg-preview.png"))); // NOI18N
-        nvg.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 430, 290));
+        nvg.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-100, 90, 430, 290));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-car-sale-48.png"))); // NOI18N
         nvg.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 50, 40));
@@ -202,6 +203,14 @@ public static boolean loginAcc(String username, String password) {
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-username-48.png"))); // NOI18N
         nvg.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 50, 40));
+
+        forgot.setText("Forgot Password? click here");
+        forgot.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                forgotMouseClicked(evt);
+            }
+        });
+        nvg.add(forgot, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 200, -1, -1));
 
         jDesktopPane1.add(nvg, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 600, 330));
 
@@ -274,6 +283,12 @@ public static boolean loginAcc(String username, String password) {
 
     }//GEN-LAST:event_ShowhidepasswordMouseClicked
 
+    private void forgotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_forgotMouseClicked
+       ForgetPass efp = new ForgetPass();
+         efp.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_forgotMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -312,6 +327,7 @@ public static boolean loginAcc(String username, String password) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Showhidepassword;
     private javax.swing.JPasswordField fjpassword;
+    private javax.swing.JLabel forgot;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

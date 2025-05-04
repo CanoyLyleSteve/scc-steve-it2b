@@ -14,6 +14,8 @@ import java.awt.event.*;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.border.Border;
 /**
  *
@@ -295,22 +297,22 @@ public class registration extends javax.swing.JFrame {
     try {
         String hashedPassword = hashPassword(password1.getText());
 
-        if (dbc.insertData("INSERT INTO users (u_fname, u_lname, u_email, u_contact1, u_ty, u_usname, u_password1, u_status) "
-                + "VALUES ('" + fname.getText() + "','" + lname.getText() + "','" + email.getText() + "',"
-                + "'" + contact1.getText() + "','" + ty.getSelectedItem() + "','" + usname.getText() + "','" + hashedPassword + "','Active')")) {
+       if (dbc.insertData("INSERT INTO users (u_fname, u_lname, u_email, u_contact1, u_ty, u_usname, u_password1, u_status, security_question, security_answer) "
+        + "VALUES ('" + fname.getText() + "','" + lname.getText() + "','" + email.getText() + "',"
+        + "'" + contact1.getText() + "','" + ty.getSelectedItem() + "','" + usname.getText() + "','" + hashedPassword + "','Active',"
+        + "'N/A', 'N/A')")) {
 
-            JOptionPane.showMessageDialog(null, "Registration Successful!");
-            login lfr = new login();
-            lfr.setVisible(true);
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(null, "Connection Error");
+    JOptionPane.showMessageDialog(null, "Registration Successful!");
+    login lfr = new login();
+    lfr.setVisible(true);
+    this.dispose();
+} else {
+    JOptionPane.showMessageDialog(null, "Connection Error");
+}
+    }       catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(registration.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        } catch (NoSuchAlgorithmException ex) {
-        System.out.println("Error hashing password: " + ex.getMessage());
-    }
-}  
-        
     }//GEN-LAST:event_registerActionPerformed
 
     private void fnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fnameActionPerformed

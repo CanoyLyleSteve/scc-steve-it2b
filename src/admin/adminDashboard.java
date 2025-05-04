@@ -6,7 +6,13 @@
 package admin;
 
 import config.Session;
+import config.dbConnect;
 import customeragentgui.login;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -39,6 +45,7 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        users = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         nvg1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -92,6 +99,16 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-customers-30.png"))); // NOI18N
         nvg.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 30, 30));
 
+        users.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
+        users.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        users.setText("LOGS");
+        users.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                usersMouseClicked(evt);
+            }
+        });
+        nvg.add(users, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 60, 30));
+
         getContentPane().add(nvg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 520));
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
@@ -113,7 +130,39 @@ public class adminDashboard extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+ 
+    public void logEvent(int userId, String username, String action) {
+        dbConnect dbc = new dbConnect();
+        Connection con = dbc.getConnection();
+        PreparedStatement pstmt = null;
+        Timestamp time = new Timestamp(new Date().getTime());
 
+        try {
+            String sql = "INSERT INTO tbl_logs (u_id, u_username, action_time, log_action) "
+                    + "VALUES ('" + userId + "', '" + username + "', '" + time + "', '" + action + "')";
+            pstmt = con.prepareStatement(sql);
+
+            /*            pstmt.setInt(1, userId);
+            pstmt.setString(2, username);
+            pstmt.setTimestamp(3, new Timestamp(new Date().getTime()));
+            pstmt.setString(4, userType);*/
+            pstmt.executeUpdate();
+            System.out.println("Login log recorded successfully.");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error recording log: " + e.getMessage());
+        } finally {
+            try {
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error closing resources: " + e.getMessage());
+            }
+        }
+    }
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         int confirm = javax.swing.JOptionPane.showConfirmDialog(null, "Are you sure you want to log out?", "Logout", javax.swing.JOptionPane.YES_NO_OPTION);
     
@@ -149,6 +198,13 @@ public class adminDashboard extends javax.swing.JFrame {
         }
        
     }//GEN-LAST:event_formWindowActivated
+
+    private void usersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usersMouseClicked
+       Logs_Admin la = new Logs_Admin();
+        la.setVisible(true);
+        this.dispose();
+                             
+    }//GEN-LAST:event_usersMouseClicked
 
     /**
      * @param args the command line arguments
@@ -197,5 +253,6 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel nvg;
     private javax.swing.JPanel nvg1;
+    private javax.swing.JLabel users;
     // End of variables declaration//GEN-END:variables
 }
