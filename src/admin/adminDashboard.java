@@ -46,6 +46,7 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         users = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         nvg1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -78,13 +79,13 @@ public class adminDashboard extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Customers  ");
+        jLabel2.setText("Product");
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel2MouseClicked(evt);
             }
         });
-        nvg.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 181, 90, 30));
+        nvg.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 90, 30));
 
         jLabel5.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -109,9 +110,19 @@ public class adminDashboard extends javax.swing.JFrame {
         });
         nvg.add(users, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 60, 30));
 
+        jLabel4.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("Customers  ");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
+        nvg.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 181, 90, 30));
+
         getContentPane().add(nvg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 520));
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         nvg1.setBackground(new java.awt.Color(0, 0, 0));
@@ -178,8 +189,8 @@ public class adminDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        customers cts = new customers();
-      cts.setVisible(true);
+       productform pf = new productform();
+      pf.setVisible(true);
       this.dispose();
                       
     }//GEN-LAST:event_jLabel2MouseClicked
@@ -205,6 +216,10 @@ public class adminDashboard extends javax.swing.JFrame {
         this.dispose();
                              
     }//GEN-LAST:event_usersMouseClicked
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel4MouseClicked
 
     /**
      * @param args the command line arguments
@@ -247,6 +262,7 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
