@@ -1,5 +1,6 @@
 
 package customeragentgui;
+import user.ForgetPass;
 import admin.adminDashboard;
 import com.mysql.jdbc.PreparedStatement;
 import user.userdashboard;
