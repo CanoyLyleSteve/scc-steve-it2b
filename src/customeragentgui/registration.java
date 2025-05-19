@@ -98,7 +98,9 @@ public class registration extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        secQ = new javax.swing.JComboBox<>();
+        secA = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -121,12 +123,12 @@ public class registration extends javax.swing.JFrame {
                 fnameActionPerformed(evt);
             }
         });
-        jPanel3.add(fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 110, 210, 40));
+        jPanel3.add(fname, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, 210, 40));
 
         lname.setFont(new java.awt.Font("Bell MT", 0, 14)); // NOI18N
         lname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         lname.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Last Name", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 11))); // NOI18N
-        jPanel3.add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 150, 210, 40));
+        jPanel3.add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 120, 210, 40));
 
         email.setFont(new java.awt.Font("Bell MT", 0, 14)); // NOI18N
         email.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -136,7 +138,7 @@ public class registration extends javax.swing.JFrame {
                 emailActionPerformed(evt);
             }
         });
-        jPanel3.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 190, 210, 40));
+        jPanel3.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 160, 210, 40));
 
         usname.setFont(new java.awt.Font("Bell MT", 0, 14)); // NOI18N
         usname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -146,7 +148,7 @@ public class registration extends javax.swing.JFrame {
                 usnameActionPerformed(evt);
             }
         });
-        jPanel3.add(usname, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 270, 210, 40));
+        jPanel3.add(usname, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 240, 210, 40));
 
         register.setBackground(new java.awt.Color(255, 255, 255));
         register.setFont(new java.awt.Font("Bell MT", 0, 12)); // NOI18N
@@ -164,7 +166,7 @@ public class registration extends javax.swing.JFrame {
                 registerActionPerformed(evt);
             }
         });
-        jPanel3.add(register, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 420, 90, 30));
+        jPanel3.add(register, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 490, 90, 30));
 
         Show.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-hide-16.png"))); // NOI18N
         Show.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -172,11 +174,11 @@ public class registration extends javax.swing.JFrame {
                 ShowMouseClicked(evt);
             }
         });
-        jPanel3.add(Show, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 320, -1, 20));
+        jPanel3.add(Show, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 300, -1, 20));
 
         password1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         password1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 11))); // NOI18N
-        jPanel3.add(password1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 310, 210, 40));
+        jPanel3.add(password1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, 210, 40));
 
         ty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User", "Customer", "Nestea" }));
         ty.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Account Type", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 11)))); // NOI18N
@@ -185,7 +187,7 @@ public class registration extends javax.swing.JFrame {
                 tyActionPerformed(evt);
             }
         });
-        jPanel3.add(ty, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 360, 210, 40));
+        jPanel3.add(ty, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 330, 210, 40));
 
         contact1.setFont(new java.awt.Font("Bell MT", 0, 14)); // NOI18N
         contact1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -195,16 +197,16 @@ public class registration extends javax.swing.JFrame {
                 contact1ActionPerformed(evt);
             }
         });
-        jPanel3.add(contact1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 230, 210, 40));
+        jPanel3.add(contact1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 200, 210, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-account-24.png"))); // NOI18N
-        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 370, -1, 20));
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 340, -1, 20));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-name-24.png"))); // NOI18N
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 160, -1, 20));
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 130, -1, 20));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-phone-24.png"))); // NOI18N
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 240, -1, 20));
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 210, -1, 20));
 
         cancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-exit-button-30.png"))); // NOI18N
         cancel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -215,35 +217,42 @@ public class registration extends javax.swing.JFrame {
         jPanel3.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 10, 30, 30));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-email-24.png"))); // NOI18N
-        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 200, -1, 20));
+        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 170, -1, 20));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-password-24_1.png"))); // NOI18N
-        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 320, -1, -1));
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 280, -1, -1));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-username-24.png"))); // NOI18N
-        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 280, -1, 20));
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 250, -1, 20));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-name-24.png"))); // NOI18N
-        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 120, 20, 20));
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 90, 20, 20));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-registration-40.png"))); // NOI18N
-        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 60, 40, 40));
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 40, 40, 40));
 
         jLabel4.setFont(new java.awt.Font("Bell MT", 0, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Registration Form");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 20, 170, 40));
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 0, 170, 40));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/bckregister.jpg"))); // NOI18N
-        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 530));
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, 0, 400, 530));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-password-24_1.png"))); // NOI18N
-        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 320, -1, -1));
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 420, -1, -1));
+        jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, -1, -1));
 
-        jLabel12.setText("jLabel12");
-        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 320, -1, -1));
+        secQ.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "What was the name of your first school?", "What's the lastname of your Mother?", "What is the name of the city where you were born?", "What is your dream job?", "What's your birth month?" }));
+        secQ.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                secQActionPerformed(evt);
+            }
+        });
+        jPanel3.add(secQ, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 380, 220, 30));
+        jPanel3.add(secA, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 420, 220, 30));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 530));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 530));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 780, 530));
 
@@ -261,58 +270,63 @@ public class registration extends javax.swing.JFrame {
 
     private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
        
-        if (fname.getText().isEmpty() 
-                || lname.getText().isEmpty() 
-                || email.getText().isEmpty() 
-                || contact1.getText().isEmpty()
-                || usname.getText().isEmpty() 
-               || password1.getText().isEmpty()){
-                JOptionPane.showMessageDialog(null, "All field are required");
-            return;
-       }
-       String contactPattern = "^[0-9]{11}$"; 
-    if (!contact1.getText().matches(contactPattern)) {
-        JOptionPane.showMessageDialog(null, "Invalid contact number. It must be exactly 11 digits and contain numbers only.");
-        contact1.setText(""); 
-        return;
-    }
-       
-       String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
-    if (!email.getText().matches(emailPattern)) {
-        JOptionPane.showMessageDialog(null, "Invalid email format. Please enter a valid email.");
-        email.setText(""); 
-        return;
-    
-        
-        }else if(password1.getText().length()< 8){
-        JOptionPane.showMessageDialog(null, "Password should have at least 8 characters");
-        password1.setText("");
-        }else if(duplicateCheck()){
-           System.out.println("Duplicate Exist");
-     
-         }else{           
-        dbConnect dbc = new dbConnect();
-        
+if (fname.getText().isEmpty() 
+        || lname.getText().isEmpty() 
+        || email.getText().isEmpty() 
+        || contact1.getText().isEmpty()
+        || usname.getText().isEmpty() 
+        || password1.getText().isEmpty()
+        || secQ.getSelectedItem() == null
+        || secA.getText().isEmpty()) {
+
+    JOptionPane.showMessageDialog(null, "All fields are required");
+    return;
+}
+
+String contactPattern = "^[0-9]{11}$"; 
+if (!contact1.getText().matches(contactPattern)) {
+    JOptionPane.showMessageDialog(null, "Invalid contact number. It must be exactly 11 digits and contain numbers only.");
+    contact1.setText(""); 
+    return;
+}
+
+String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
+if (!email.getText().matches(emailPattern)) {
+    JOptionPane.showMessageDialog(null, "Invalid email format. Please enter a valid email.");
+    email.setText(""); 
+    return;
+} else if (password1.getText().length() < 8) {
+    JOptionPane.showMessageDialog(null, "Password should have at least 8 characters");
+    password1.setText("");
+    return;
+} else if (duplicateCheck()) {
+    System.out.println("Duplicate Exist");
+    return;
+} else {
+    dbConnect dbc = new dbConnect();
 
     try {
         String hashedPassword = hashPassword(password1.getText());
 
-       if (dbc.insertData("INSERT INTO users (u_fname, u_lname, u_email, u_contact1, u_ty, u_usname, u_password1, u_status, security_question, security_answer) "
-        + "VALUES ('" + fname.getText() + "','" + lname.getText() + "','" + email.getText() + "',"
-        + "'" + contact1.getText() + "','" + ty.getSelectedItem() + "','" + usname.getText() + "','" + hashedPassword + "','Active',"
-        + "'N/A', 'N/A')")) {
+        String sql = "INSERT INTO users (u_fname, u_lname, u_email, u_contact1, u_ty, u_usname, u_password1, u_status, security_question, security_answer) "
+                + "VALUES ('" + fname.getText() + "','" + lname.getText() + "','" + email.getText() + "',"
+                + "'" + contact1.getText() + "','" + ty.getSelectedItem() + "','" + usname.getText() + "','" + hashedPassword + "','Active',"
+                + "'" + secQ.getSelectedItem() + "','" + secA.getText() + "')";
 
-    JOptionPane.showMessageDialog(null, "Registration Successful!");
-    login lfr = new login();
-    lfr.setVisible(true);
-    this.dispose();
-} else {
-    JOptionPane.showMessageDialog(null, "Connection Error");
-}
-    }       catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(registration.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        if (dbc.insertData(sql)) {
+            JOptionPane.showMessageDialog(null, "Registration Successful!");
+            login lfr = new login();
+            lfr.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Connection Error");
         }
+
+    } catch (NoSuchAlgorithmException ex) {
+        Logger.getLogger(registration.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}
+
     }//GEN-LAST:event_registerActionPerformed
 
     private void fnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fnameActionPerformed
@@ -351,6 +365,10 @@ public class registration extends javax.swing.JFrame {
         password1.setEchoChar('\u2022'); 
     }
     }//GEN-LAST:event_ShowMouseClicked
+
+    private void secQActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_secQActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_secQActionPerformed
 
     /**
      * @param args the command line arguments
@@ -396,7 +414,6 @@ public class registration extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -406,10 +423,13 @@ public class registration extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField lname;
     private javax.swing.JPasswordField password1;
     private javax.swing.JButton register;
+    private javax.swing.JTextField secA;
+    private javax.swing.JComboBox<String> secQ;
     private javax.swing.JComboBox<String> ty;
     private javax.swing.JTextField usname;
     // End of variables declaration//GEN-END:variables

@@ -480,7 +480,7 @@ public class AgentSold extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Amounts Sold");
+        jLabel7.setText(" Sold:");
         Main.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 140, 110, 30));
 
         logout.addMouseListener(new java.awt.event.MouseAdapter() {

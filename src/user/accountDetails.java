@@ -98,7 +98,7 @@ public class accountDetails extends javax.swing.JFrame {
         lname.setFont(new java.awt.Font("Bell MT", 0, 14)); // NOI18N
         lname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         lname.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Last Name", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 11))); // NOI18N
-        jPanel1.add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 210, 40));
+        jPanel1.add(lname, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, 210, 40));
 
         email.setFont(new java.awt.Font("Bell MT", 0, 14)); // NOI18N
         email.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -108,7 +108,7 @@ public class accountDetails extends javax.swing.JFrame {
                 emailActionPerformed(evt);
             }
         });
-        jPanel1.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, 210, 40));
+        jPanel1.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 210, 40));
 
         usname.setFont(new java.awt.Font("Bell MT", 0, 14)); // NOI18N
         usname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -118,7 +118,7 @@ public class accountDetails extends javax.swing.JFrame {
                 usnameActionPerformed(evt);
             }
         });
-        jPanel1.add(usname, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, 210, 40));
+        jPanel1.add(usname, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 210, 40));
 
         ty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "User", "Customer", "Nestea" }));
         ty.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Account Type", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 11)))); // NOI18N
@@ -127,7 +127,7 @@ public class accountDetails extends javax.swing.JFrame {
                 tyActionPerformed(evt);
             }
         });
-        jPanel1.add(ty, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 300, 210, 40));
+        jPanel1.add(ty, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 200, 210, 40));
 
         fname1.setFont(new java.awt.Font("Bell MT", 0, 14)); // NOI18N
         fname1.setHorizontalAlignment(javax.swing.JTextField.CENTER);

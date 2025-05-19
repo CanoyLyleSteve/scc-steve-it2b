@@ -644,39 +644,38 @@ Qnty.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() 
     }// </editor-fold>//GEN-END:initComponents
 
     private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
-       
-  dbConnect dbc = new dbConnect();
-Session sess = Session.getInstance();
-dbConnect connector = new dbConnect();
-int userId = 0;
-int d_qnty = 0;
-int sold_qnty = 0;
-int minusQnty = 0;
-int plusQnty = 0;
-String uname2 = null;
+        dbConnect dbc = new dbConnect();
+      Session sess = Session.getInstance();
+      dbConnect connector = new dbConnect();
+      int userId = 0;
+      int d_qnty = 0;
+      int sold_qnty = 0;
+      int minusQnty = 0;
+      int plusQnty = 0;
+      String uname2 = null;
 
-String mn = Cname.getText().trim();
-String pr = Price.getText().trim();
-String pid = PID.getText().trim();
-String qtyStr = Qnty.getText().trim();
-String py = Payment.getText().trim();
+      String mn = Cname.getText().trim();
+      String pr = Price.getText().trim();
+      String pid = PID.getText().trim();
+      String qtyStr = Qnty.getText().trim();
+      String py = Payment.getText().trim();
 
-System.out.println("Selected Product Name: " + mn);
-System.out.println("Price: " + pr);
-System.out.println("Product ID: " + pid);
-System.out.println("Quantity: " + qtyStr);
-System.out.println("Payment: " + py);
+      System.out.println("Selected Product Name: " + mn);
+      System.out.println("Price: " + pr);
+      System.out.println("Product ID: " + pid);
+      System.out.println("Quantity: " + qtyStr);
+      System.out.println("Payment: " + py);
 
-if (mn.isEmpty() || pr.isEmpty() || qtyStr.isEmpty()) {
-    JOptionPane.showMessageDialog(null, "Please Fill All Boxes");
-    System.out.println("One or more fields are empty.");
-} else if (!qtyStr.matches("\\d+")) {
-    JOptionPane.showMessageDialog(null, "Quantity Must Only Contain Numbers");
-    System.out.println("Quantity is not a number.");
-} else if (!py.matches("\\d+")) {
-    JOptionPane.showMessageDialog(null, "Payment Must Only Contain Numbers");
-    System.out.println("Payment is not a number.");
-} else {
+      if (mn.isEmpty() || pr.isEmpty() || qtyStr.isEmpty()) {
+          JOptionPane.showMessageDialog(null, "Please Fill All Boxes");
+          System.out.println("One or more fields are empty.");
+      } else if (!qtyStr.matches("\\d+")) {
+          JOptionPane.showMessageDialog(null, "Quantity Must Only Contain Numbers");
+          System.out.println("Quantity is not a number.");
+      } else if (!py.matches("\\d+")) {
+          JOptionPane.showMessageDialog(null, "Payment Must Only Contain Numbers");
+          System.out.println("Payment is not a number.");
+      } else {
     int price = Integer.parseInt(pr);
     int payment = Integer.parseInt(py);
     int q = Integer.parseInt(qtyStr);
@@ -686,25 +685,34 @@ if (mn.isEmpty() || pr.isEmpty() || qtyStr.isEmpty()) {
         System.out.println("Payment is less than price.");
     } else {
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
-            String date = sdf.format(new java.util.Date());
-            System.out.println("Formatted date: " + date);
+            java.sql.Timestamp now = new java.sql.Timestamp(System.currentTimeMillis());
 
-            String queryUser = "SELECT * FROM users WHERE u_id = '" + sess.getUid() + "'";
+            String queryUser = "SELECT * FROM users WHERE u_id = ?";
             PreparedStatement pstmtUser = connector.getConnection().prepareStatement(queryUser);
+            pstmtUser.setInt(1, sess.getUid());
             ResultSet resultSetUser = pstmtUser.executeQuery();
             if (resultSetUser.next()) {
                 userId = resultSetUser.getInt("u_id");
+                uname2 = resultSetUser.getString("u_usname");
             }
             System.out.println("User ID: " + userId);
 
-            String orderQuery = "INSERT INTO orders (u_id, p_id, quantity, date, status, o_total) " +
-                    "VALUES ('" + userId + "', '" + pid + "', '" + q + "', '" + date + "', 'Succesful', '" + py + "')";
-            System.out.println("Executing order insert: " + orderQuery);
+            String orderQuery = "INSERT INTO orders (u_id, p_id, quantity, date, status, o_total) VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement orderStmt = connector.getConnection().prepareStatement(orderQuery);
+            orderStmt.setInt(1, userId);
+            orderStmt.setInt(2, Integer.parseInt(pid));
+            orderStmt.setInt(3, q);
+            orderStmt.setTimestamp(4, now);  // ✅ FIXED: Uses correct timestamp format
+            orderStmt.setString(5, "Successful");
+            orderStmt.setInt(6, payment);
 
-            if (dbc.insertData(orderQuery)) {
-                String productQuery = "SELECT * FROM product WHERE p_id = '" + pid + "'";
+            int rowsInserted = orderStmt.executeUpdate();
+            System.out.println("Executing order insert...");
+
+            if (rowsInserted > 0) {
+                String productQuery = "SELECT * FROM product WHERE p_id = ?";
                 PreparedStatement pstmtProd = connector.getConnection().prepareStatement(productQuery);
+                pstmtProd.setInt(1, Integer.parseInt(pid));
                 ResultSet resultSetProd = pstmtProd.executeQuery();
                 if (resultSetProd.next()) {
                     d_qnty = resultSetProd.getInt("p_quantity");
@@ -717,15 +725,13 @@ if (mn.isEmpty() || pr.isEmpty() || qtyStr.isEmpty()) {
                     System.out.println("New quantity: " + minusQnty);
                     System.out.println("New sold quantity: " + plusQnty);
 
-                    String updateProduct = "UPDATE product SET p_quantity = '" + minusQnty + "', p_sold = '" + plusQnty + "' WHERE p_id = '" + pid + "'";
-                    dbc.updateData(updateProduct);
+                    String updateProduct = "UPDATE product SET p_quantity = ?, p_sold = ? WHERE p_id = ?";
+                    PreparedStatement updateStmt = connector.getConnection().prepareStatement(updateProduct);
+                    updateStmt.setInt(1, minusQnty);
+                    updateStmt.setInt(2, plusQnty);
+                    updateStmt.setInt(3, Integer.parseInt(pid));
+                    updateStmt.executeUpdate();
                     System.out.println("Product update executed.");
-                }
-
-                ResultSet resultSetUser2 = pstmtUser.executeQuery();
-                if (resultSetUser2.next()) {
-                    uname2 = resultSetUser2.getString("u_usname");
-                    System.out.println("Username: " + uname2);
                 }
 
                 logEvent(userId, uname2, "User made transaction ID: " + mn);
@@ -745,9 +751,11 @@ if (mn.isEmpty() || pr.isEmpty() || qtyStr.isEmpty()) {
 
         } catch (SQLException ex) {
             System.out.println("SQL Exception: " + ex);
+            JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage());
         }
     }
 }
+
 
     }//GEN-LAST:event_addMouseClicked
 
@@ -773,17 +781,17 @@ if (mn.isEmpty() || pr.isEmpty() || qtyStr.isEmpty()) {
 
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
         int rowIndex = table.getSelectedRow();
-        System.out.println("[DEBUG] Selected rowIndex: " + rowIndex);
+        System.out.println("Selected rowIndex: " + rowIndex);
 
         if (rowIndex < 0) {
             JOptionPane.showMessageDialog(null, "Please select an Item");
-            System.out.println("[DEBUG] No row selected. Exiting.");
+            System.out.println(" No row selected. Exiting.");
         } else {
             try {
                 dbConnect dbc = new dbConnect();
                 TableModel tbl = table.getModel();
                 Object selectedID = tbl.getValueAt(rowIndex, 0);
-                System.out.println("[DEBUG] Selected Product ID: " + selectedID);
+                System.out.println(" Selected Product ID: " + selectedID);
 
                 ResultSet rs = dbc.getData("SELECT * FROM product WHERE p_id = '" + selectedID + "'");
                 if (rs.next()) {
@@ -792,9 +800,9 @@ if (mn.isEmpty() || pr.isEmpty() || qtyStr.isEmpty()) {
 
 
 
-                    System.out.println("[DEBUG] Product details loaded into fields.");
+                    System.out.println(" Product details loaded into fields.");
                 } else {
-                    System.out.println("[DEBUG] No product found for selected ID.");
+                    System.out.println(" No product found for selected ID.");
                 }
             } catch (SQLException e) {
                 System.out.println("[ERROR] SQL Exception: " + e);
