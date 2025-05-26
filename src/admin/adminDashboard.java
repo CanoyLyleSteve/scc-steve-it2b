@@ -14,8 +14,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -53,6 +55,7 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        displayTotalSold = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         nvg1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -148,6 +151,14 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-logs-folder-24.png"))); // NOI18N
         nvg.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 30, 30));
 
+        displayTotalSold.setText("s");
+        displayTotalSold.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                displayTotalSoldMouseClicked(evt);
+            }
+        });
+        nvg.add(displayTotalSold, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 80, 30));
+
         getContentPane().add(nvg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 520));
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
@@ -171,7 +182,7 @@ public class adminDashboard extends javax.swing.JFrame {
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 350, 230, 150));
 
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/bbbb.JPG"))); // NOI18N
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 580, 280));
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, 470, 280));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, 690, 520));
 
@@ -211,6 +222,32 @@ public class adminDashboard extends javax.swing.JFrame {
             }
         }
     }
+    
+    
+public void displayTotalSoldFromOrders() {
+    double totalSold = 0.0;
+
+    try {
+        dbConnect dbc = new dbConnect();
+        ResultSet rs = dbc.getData("SELECT SUM(o_total) AS o_total FROM orders");
+
+        if (rs.next()) {
+            totalSold = rs.getDouble("o_total");
+        }
+
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
+        totalSoldField.setText(decimalFormat.format(totalSold)); // Set to your JLabel or JTextField
+
+    } catch (SQLException | NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Error fetching total sold: " + e.getMessage());
+    }
+}
+private javax.swing.JTextField totalSoldField;
+
+
+
+    
+    
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         int confirm = javax.swing.JOptionPane.showConfirmDialog(null, "Are you sure you want to log out?", "Logout", javax.swing.JOptionPane.YES_NO_OPTION);
     
@@ -232,6 +269,27 @@ public class adminDashboard extends javax.swing.JFrame {
                       
     }//GEN-LAST:event_jLabel2MouseClicked
 
+  /*  public void displayTotalOrders() {
+    double grandTotal = 0.0;
+
+    try {
+        dbConnect dbc = new dbConnect();
+        ResultSet rs = dbc.getData("SELECT o_total FROM orders");
+
+        while (rs.next()) {
+            grandTotal += rs.getDouble("o_total");
+        }
+
+        DecimalFormat df = new DecimalFormat("#,##0.00");
+        totalOrdersField.setText(df.format(grandTotal)); // ✅ Display total (e.g., 1,200.00)
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error fetching total orders: " + e.getMessage());
+    }
+}
+*/
+
+    
+    
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         Session sess = Session.getInstance();
      
@@ -265,6 +323,11 @@ public class adminDashboard extends javax.swing.JFrame {
         as.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel6MouseClicked
+
+    private void displayTotalSoldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayTotalSoldMouseClicked
+    
+
+    }//GEN-LAST:event_displayTotalSoldMouseClicked
 
     /**
      * @param args the command line arguments
@@ -304,6 +367,7 @@ public class adminDashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel acc_lname;
     private javax.swing.JLabel acc_name;
+    private javax.swing.JLabel displayTotalSold;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

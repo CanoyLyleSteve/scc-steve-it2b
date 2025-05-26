@@ -83,7 +83,7 @@ public class changePass extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         nvg1.setBackground(new java.awt.Color(0, 0, 0));
@@ -115,6 +115,11 @@ public class changePass extends javax.swing.JFrame {
         jPanel1.add(nvg1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 70));
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 102));
+        jPanel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel2MouseClicked(evt);
+            }
+        });
         jPanel2.setLayout(null);
 
         acc_ln1.setFont(new java.awt.Font("Bell MT", 0, 12)); // NOI18N
@@ -302,6 +307,12 @@ public class changePass extends javax.swing.JFrame {
         conpass.setEchoChar('\u2022'); 
     }
     }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
+      accountDetails ad = new accountDetails();
+      ad.setVisible(true);
+      this.dispose();
+    }//GEN-LAST:event_jPanel2MouseClicked
 
     /**
      * @param args the command line arguments

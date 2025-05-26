@@ -286,11 +286,12 @@ public class Logs_Admin extends javax.swing.JFrame {
         Main.setBackground(new java.awt.Color(255, 255, 255));
         Main.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Header.setBackground(new java.awt.Color(204, 255, 255));
+        Header.setBackground(new java.awt.Color(0, 0, 0));
         Header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Bell MT", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Logs Dashboard");
         Header.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 730, 40));

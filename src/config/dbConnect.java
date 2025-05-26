@@ -80,6 +80,18 @@ public class dbConnect {
      public Connection getConnection() {
         return connect;
     }
+     public void updateData(String query, Object... params) {
+    try (PreparedStatement pstmt = getConnection().prepareStatement(query)) {
+        for (int i = 0; i < params.length; i++) {
+            pstmt.setObject(i + 1, params[i]);
+        }
+        pstmt.executeUpdate();
+    } catch (SQLException e) {
+        e.printStackTrace();
+        // Handle exceptions properly here
+    }
+}
+
 }
 
 

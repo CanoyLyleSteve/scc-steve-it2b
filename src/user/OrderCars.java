@@ -17,12 +17,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import net.proteanit.sql.DbUtils;
 import config.Session;
+import java.awt.BorderLayout;
 import static java.awt.Color.black;
 import static java.awt.Color.red;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -39,6 +46,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -295,7 +303,7 @@ Qnty.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() 
            
             SwingUtilities.invokeLater(() -> {
                 DefaultTableModel model = new DefaultTableModel(
-                        new String[]{"ID", "Car Name", "Price", "Status", "Stocks"}, 0
+                        new String[]{"ID", "Car Name", "Price", "Status", "Stocks","PaymentTypeBox"}, 0
                 );
                 for (Object[] row : rowData) {
                     model.addRow(row);
@@ -366,38 +374,37 @@ Qnty.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() 
     
     
     
-    public void logEvent(int userId, String username, String action) 
+     public void logEvent(int userId, String username, String action) {
     {
-        dbConnect dbc = new dbConnect();
-        Connection con = dbc.getConnection();
-        PreparedStatement pstmt = null;
-        Timestamp time = new Timestamp(new Date().getTime());
+     dbConnect dbc = new dbConnect();
+Connection con = dbc.getConnection();
+PreparedStatement pstmt = null;
+Timestamp time = new Timestamp(new Date().getTime());
 
-        try {
-            String sql = "INSERT INTO tbl_logs (u_id, u_username, action_time, log_action) "
-                    + "VALUES ('" + userId + "', '" + username + "', '" + time + "', '" + action + "')";
-            pstmt = con.prepareStatement(sql);
+try {
+    String sql = "INSERT INTO tbl_logs (u_id, u_username, action_time, log_action) VALUES (?, ?, ?, ?)";
+    pstmt = con.prepareStatement(sql);
+    pstmt.setInt(1, userId); // Must exist in users.u_id
+    pstmt.setString(2, username);
+    pstmt.setTimestamp(3, time);
+    pstmt.setString(4, action);
 
-           
-            pstmt.executeUpdate();
-            System.out.println("Login log recorded successfully.");
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error recording log: " + e.getMessage());
-        } finally {
-            try {
-                if (pstmt != null) {
-                    pstmt.close();
-                }
-                if (con != null) {
-                    con.close();
-                }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Error closing resources: " + e.getMessage());
-            }
-        }
+    pstmt.executeUpdate();
+    System.out.println("Login log recorded successfully.");
+} catch (SQLException e) {
+    JOptionPane.showMessageDialog(null, "Error recording log: " + e.getMessage());
+} finally {
+    try {
+        if (pstmt != null) pstmt.close();
+        if (con != null) con.close();
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error closing resources: " + e.getMessage());
     }
+}
+
     
-    
+    }
+     }
     
     
     
@@ -491,20 +498,30 @@ Qnty.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() 
         Payment = new javax.swing.JTextField();
         add = new javax.swing.JPanel();
         con = new javax.swing.JLabel();
+        paymentTypeBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Main.setBackground(new java.awt.Color(255, 204, 204));
+        Main.setBackground(new java.awt.Color(0, 0, 0));
         Main.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Header.setBackground(new java.awt.Color(255, 255, 255));
+        Header.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                HeaderAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
         Header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setBackground(new java.awt.Color(0, 255, 0));
         jLabel1.setFont(new java.awt.Font("Bell MT", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("CARS ORDERS");
-        Header.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, 320, 40));
+        Header.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, 320, 40));
 
         Logout.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         Logout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -536,6 +553,7 @@ Qnty.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() 
         Main.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 450, 420));
 
         jLabel6.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Price to Pay:");
         Main.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 230, 100, 30));
@@ -550,6 +568,7 @@ Qnty.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() 
         Main.add(Price, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 230, 140, 30));
 
         jLabel7.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Car Name:");
         Main.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 150, 110, 30));
@@ -573,11 +592,13 @@ Qnty.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() 
         Main.add(PID, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 110, 140, 30));
 
         jLabel20.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel20.setText("Product ID:");
         Main.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 110, 90, 30));
 
         jLabel8.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Quanity:");
         Main.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 190, 80, 30));
@@ -596,6 +617,7 @@ Qnty.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() 
         Main.add(Qnty, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 190, 140, 30));
 
         jLabel9.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Enter Payment:");
         Main.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 280, 120, 30));
@@ -629,6 +651,9 @@ Qnty.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() 
 
         Main.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 410, 100, 30));
 
+        paymentTypeBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose Payment", "Cash", "Installment" }));
+        Main.add(paymentTypeBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 320, 140, 30));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -644,116 +669,160 @@ Qnty.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() 
     }// </editor-fold>//GEN-END:initComponents
 
     private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
-        dbConnect dbc = new dbConnect();
-      Session sess = Session.getInstance();
-      dbConnect connector = new dbConnect();
-      int userId = 0;
-      int d_qnty = 0;
-      int sold_qnty = 0;
-      int minusQnty = 0;
-      int plusQnty = 0;
-      String uname2 = null;
+                                
+  dbConnect connector = new dbConnect();
+Session sess = Session.getInstance();
 
-      String mn = Cname.getText().trim();
-      String pr = Price.getText().trim();
-      String pid = PID.getText().trim();
-      String qtyStr = Qnty.getText().trim();
-      String py = Payment.getText().trim();
+// Variable declarations
+long d_qnty = 0L;
+long sold_qnty = 0L;
+long minusQnty = 0L;
+long plusQnty = 0L;
+int userId = 0;
+String uname2 = null;
 
-      System.out.println("Selected Product Name: " + mn);
-      System.out.println("Price: " + pr);
-      System.out.println("Product ID: " + pid);
-      System.out.println("Quantity: " + qtyStr);
-      System.out.println("Payment: " + py);
+// Get input values from GUI
+String mn = Cname.getText().trim();
+String pr = Price.getText().trim();
+String pid = PID.getText().trim();
+String qtyStr = (Qnty != null && Qnty.getText() != null) ? Qnty.getText().trim() : "";
+String py = (Payment != null && Payment.getText() != null) ? Payment.getText().trim() : "";
+String paymentType = paymentTypeBox.getSelectedItem().toString().trim();
 
-      if (mn.isEmpty() || pr.isEmpty() || qtyStr.isEmpty()) {
-          JOptionPane.showMessageDialog(null, "Please Fill All Boxes");
-          System.out.println("One or more fields are empty.");
-      } else if (!qtyStr.matches("\\d+")) {
-          JOptionPane.showMessageDialog(null, "Quantity Must Only Contain Numbers");
-          System.out.println("Quantity is not a number.");
-      } else if (!py.matches("\\d+")) {
-          JOptionPane.showMessageDialog(null, "Payment Must Only Contain Numbers");
-          System.out.println("Payment is not a number.");
-      } else {
-    int price = Integer.parseInt(pr);
-    int payment = Integer.parseInt(py);
-    int q = Integer.parseInt(qtyStr);
+// Display selected input
+System.out.println("Selected Product Name: " + mn);
+System.out.println("Price: " + pr);
+System.out.println("Product ID: " + pid);
+System.out.println("Quantity: " + qtyStr);
+System.out.println("Payment: " + py);
+System.out.println("Payment Type: " + paymentType);
 
-    if (price > payment) {
-        JOptionPane.showMessageDialog(null, "Insufficient Cash");
-        System.out.println("Payment is less than price.");
-    } else {
-        try {
-            java.sql.Timestamp now = new java.sql.Timestamp(System.currentTimeMillis());
+// Input validations
+if (mn.isEmpty() || pr.isEmpty() || qtyStr.isEmpty() || py.isEmpty() || paymentType.isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Please fill all boxes");
+    return;
+}
+if (!qtyStr.matches("\\d+")) {
+    JOptionPane.showMessageDialog(null, "Quantity must only contain numbers");
+    return;
+}
+if (!pr.matches("\\d+(\\.\\d{1,2})?")) {
+    JOptionPane.showMessageDialog(null, "Price must be a valid number, e.g., 15 or 15.00");
+    return;
+}
+if (!py.matches("\\d+(\\.\\d{1,2})?")) {
+    JOptionPane.showMessageDialog(null, "Payment must be a valid number, e.g., 15 or 15.00");
+    return;
+}
+if (!paymentType.equalsIgnoreCase("Cash") && !paymentType.equalsIgnoreCase("Installment")) {
+    JOptionPane.showMessageDialog(null, "Payment type must be either 'Cash' or 'Installment'");
+    return;
+}
 
-            String queryUser = "SELECT * FROM users WHERE u_id = ?";
-            PreparedStatement pstmtUser = connector.getConnection().prepareStatement(queryUser);
+// Convert inputs
+BigDecimal price = new BigDecimal(pr);
+BigDecimal payment = new BigDecimal(py);
+int q = Integer.parseInt(qtyStr);
+BigDecimal total = price.multiply(BigDecimal.valueOf(q));
+
+// Validate payment amount based on type
+// Validate payment amount based on type
+if (paymentType.equalsIgnoreCase("Cash")) {
+    if (payment.compareTo(total) < 0) {
+        JOptionPane.showMessageDialog(null, "Insufficient Cash Payment. Please pay the full amount.");
+        return;
+    }
+} else if (paymentType.equalsIgnoreCase("Installment")) {
+    if (payment.compareTo(total) >= 0) {
+        JOptionPane.showMessageDialog(null, "Installment payment should not fully pay the total. Please enter a partial payment.");
+        return;
+    } else if (payment.compareTo(BigDecimal.ZERO) <= 0) {
+        JOptionPane.showMessageDialog(null, "Installment payment must be greater than zero.");
+        return;
+    }
+}
+
+
+try {
+    Timestamp now = new Timestamp(System.currentTimeMillis());
+
+    try (Connection conn = connector.getConnection()) {
+
+        // Get user details
+        String queryUser = "SELECT * FROM users WHERE u_id = ?";
+        try (PreparedStatement pstmtUser = conn.prepareStatement(queryUser)) {
             pstmtUser.setInt(1, sess.getUid());
-            ResultSet resultSetUser = pstmtUser.executeQuery();
-            if (resultSetUser.next()) {
-                userId = resultSetUser.getInt("u_id");
-                uname2 = resultSetUser.getString("u_usname");
+            try (ResultSet resultSetUser = pstmtUser.executeQuery()) {
+                if (resultSetUser.next()) {
+                    userId = resultSetUser.getInt("u_id");
+                    uname2 = resultSetUser.getString("u_usname");
+                }
             }
-            System.out.println("User ID: " + userId);
+        }
 
-            String orderQuery = "INSERT INTO orders (u_id, p_id, quantity, date, status, o_total) VALUES (?, ?, ?, ?, ?, ?)";
-            PreparedStatement orderStmt = connector.getConnection().prepareStatement(orderQuery);
-            orderStmt.setInt(1, userId);
-            orderStmt.setInt(2, Integer.parseInt(pid));
-            orderStmt.setInt(3, q);
-            orderStmt.setTimestamp(4, now);  // ✅ FIXED: Uses correct timestamp format
-            orderStmt.setString(5, "Successful");
-            orderStmt.setInt(6, payment);
-
-            int rowsInserted = orderStmt.executeUpdate();
-            System.out.println("Executing order insert...");
-
-            if (rowsInserted > 0) {
-                String productQuery = "SELECT * FROM product WHERE p_id = ?";
-                PreparedStatement pstmtProd = connector.getConnection().prepareStatement(productQuery);
-                pstmtProd.setInt(1, Integer.parseInt(pid));
-                ResultSet resultSetProd = pstmtProd.executeQuery();
+        // Get product details
+        String productQuery = "SELECT * FROM product WHERE p_id = ?";
+        try (PreparedStatement pstmtProd = conn.prepareStatement(productQuery)) {
+            pstmtProd.setInt(1, Integer.parseInt(pid));
+            try (ResultSet resultSetProd = pstmtProd.executeQuery()) {
                 if (resultSetProd.next()) {
-                    d_qnty = resultSetProd.getInt("p_quantity");
-                    sold_qnty = resultSetProd.getInt("p_sold");
+                    d_qnty = resultSetProd.getLong("p_quantity");
+                    sold_qnty = resultSetProd.getLong("p_sold");
+
+                    if (d_qnty == 0L) {
+                        JOptionPane.showMessageDialog(null, "This product is out of stock.");
+                        return;
+                    } else if (q > d_qnty) {
+                        JOptionPane.showMessageDialog(null, "Requested quantity exceeds available stock.");
+                        return;
+                    }
 
                     minusQnty = d_qnty - q;
                     plusQnty = sold_qnty + q;
 
-                    System.out.println("Current quantity: " + d_qnty);
-                    System.out.println("New quantity: " + minusQnty);
-                    System.out.println("New sold quantity: " + plusQnty);
+                    // Insert order
+                    String orderQuery = "INSERT INTO orders (u_id, p_id, quantity, date, status, o_total, payment_type) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                    try (PreparedStatement orderStmt = conn.prepareStatement(orderQuery)) {
+                        orderStmt.setInt(1, userId);
+                        orderStmt.setInt(2, Integer.parseInt(pid));
+                        orderStmt.setInt(3, q);
+                        orderStmt.setTimestamp(4, now);
+                        orderStmt.setString(5, "Successful");
+                        orderStmt.setBigDecimal(6, total);
+                        orderStmt.setString(7, paymentType);
 
-                    String updateProduct = "UPDATE product SET p_quantity = ?, p_sold = ? WHERE p_id = ?";
-                    PreparedStatement updateStmt = connector.getConnection().prepareStatement(updateProduct);
-                    updateStmt.setInt(1, minusQnty);
-                    updateStmt.setInt(2, plusQnty);
-                    updateStmt.setInt(3, Integer.parseInt(pid));
-                    updateStmt.executeUpdate();
-                    System.out.println("Product update executed.");
+                        int rowsInserted = orderStmt.executeUpdate();
+
+                        if (rowsInserted > 0) {
+                            // Update product stock and sold count
+                            String updateProduct = "UPDATE product SET p_quantity = ?, p_sold = ? WHERE p_id = ?";
+                            try (PreparedStatement updateStmt = conn.prepareStatement(updateProduct)) {
+                                updateStmt.setLong(1, minusQnty);
+                                updateStmt.setLong(2, plusQnty);
+                                updateStmt.setInt(3, Integer.parseInt(pid));
+                                updateStmt.executeUpdate();
+                            }
+
+                            // Log the event
+                            logEvent(userId, uname2, "User made transaction for product: " + mn);
+
+                            JOptionPane.showMessageDialog(null, "Added successfully!");
+                            userdashboard ud = new userdashboard();
+                            ud.setVisible(true);
+                            this.dispose();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "An error occurred while inserting the order.");
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Product not found.");
                 }
-
-                logEvent(userId, uname2, "User made transaction ID: " + mn);
-                System.out.println("Transaction logged.");
-
-                JOptionPane.showMessageDialog(null, "Added successfully!");
-                userdashboard ud = new userdashboard();
-                ud.setVisible(true);
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "An error occurred");
-                System.out.println("Order insert failed.");
-                userdashboard ud = new userdashboard();
-                ud.setVisible(true);
-                this.dispose();
             }
-
-        } catch (SQLException ex) {
-            System.out.println("SQL Exception: " + ex);
-            JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage());
         }
     }
+} catch (SQLException ex) {
+    JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage());
+    System.out.println("SQL Exception: " + ex);
 }
 
 
@@ -820,7 +889,7 @@ Qnty.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() 
     }//GEN-LAST:event_PaymentActionPerformed
 
     private void QntyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_QntyMouseClicked
-        String qtyText = Qnty.getText().trim();
+    String qtyText = Qnty.getText().trim();
     String pid = PID.getText().trim();
 
     if (qtyText.isEmpty() || pid.isEmpty()) {
@@ -829,21 +898,29 @@ Qnty.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() 
     }
 
     try {
-        int q = Integer.parseInt(qtyText);
+        int quantity = Integer.parseInt(qtyText);
 
         dbConnect dbc = new dbConnect();
-        Connection conn = dbc.getConnection(); 
+        Connection conn = dbc.getConnection();
+
         PreparedStatement stmt = conn.prepareStatement("SELECT p_price FROM product WHERE p_id = ?");
         stmt.setString(1, pid);
 
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-            int price = rs.getInt("p_price");
-            int total = q * price;
-            System.out.println("Total: " + total);
-            Price.setText(String.valueOf(total));
+            BigDecimal price = rs.getBigDecimal("p_price");
+            BigDecimal total = price.multiply(BigDecimal.valueOf(quantity));
+            // Suppose you have BigDecimal soldQuantity
+            BigDecimal bd = new BigDecimal("1.0E10");
+           long value = bd.longValueExact(); // converts 1.0E10 to 10000000000 as a long
+
+
+
+            System.out.println("Total: " + total.toPlainString());
+            Price.setText(total.toPlainString());  // This avoids '1.0E10' notation
         } else {
             System.out.println("Product not found.");
+            Price.setText("");
         }
 
         rs.close();
@@ -852,18 +929,24 @@ Qnty.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() 
 
     } catch (NumberFormatException e) {
         System.out.println("Invalid quantity input: " + e.getMessage());
+        Price.setText("");
     } catch (SQLException e) {
         System.out.println("Database error: " + e.getMessage());
+        Price.setText("");
     }
 
-    
     }//GEN-LAST:event_QntyMouseClicked
-
+    
     private void LogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LogoutMouseClicked
         userdashboard ad = new userdashboard();
         ad.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_LogoutMouseClicked
+
+    private void HeaderAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_HeaderAncestorAdded
+ 
+
+    }//GEN-LAST:event_HeaderAncestorAdded
 
     /**
      * @param args the command line arguments
@@ -949,6 +1032,7 @@ Qnty.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() 
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> paymentTypeBox;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }

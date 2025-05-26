@@ -301,96 +301,130 @@ public class productform extends javax.swing.JFrame {
     
     public void logEvent(int userId, String username, String action) 
     {
-        dbConnect dbc = new dbConnect();
-        Connection con = dbc.getConnection();
-        PreparedStatement pstmt = null;
-        Timestamp time = new Timestamp(new Date().getTime());
+       if (username == null || username.trim().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Username is missing. Cannot record log.");
+        return;
+    }
 
+    dbConnect dbc = new dbConnect();
+    Connection con = dbc.getConnection();
+    PreparedStatement pstmt = null;
+    Timestamp time = new Timestamp(new Date().getTime());
+
+    try {
+        String sql = "INSERT INTO tbl_logs (u_id, u_username, action_time, log_action) VALUES (?, ?, ?, ?)";
+        pstmt = con.prepareStatement(sql);
+        pstmt.setInt(1, userId);
+        pstmt.setString(2, username);
+        pstmt.setTimestamp(3, time);
+        pstmt.setString(4, action);
+
+        pstmt.executeUpdate();
+        System.out.println("Log recorded successfully.");
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error recording log: " + e.getMessage());
+    } finally {
         try {
-            String sql = "INSERT INTO tbl_logs (u_id, u_username, action_time, log_action) "
-                    + "VALUES ('" + userId + "', '" + username + "', '" + time + "', '" + action + "')";
-            pstmt = con.prepareStatement(sql);
-
-           
-            pstmt.executeUpdate();
-            System.out.println("Login log recorded successfully.");
+            if (pstmt != null) pstmt.close();
+            if (con != null) con.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error recording log: " + e.getMessage());
-        } finally {
-            try {
-                if (pstmt != null) {
-                    pstmt.close();
-                }
-                if (con != null) {
-                    con.close();
-                }
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Error closing resources: " + e.getMessage());
-            }
+            JOptionPane.showMessageDialog(null, "Error closing resources: " + e.getMessage());
         }
     }
-    
-    
-    
-    
-    
-    
-    private void deleteUser() {
-        dbConnect connector = new dbConnect();
-Session sess = Session.getInstance();
 
-int selectedRow = table.getSelectedRow();
-if (selectedRow == -1) {
-    JOptionPane.showMessageDialog(this, "Please select a user to delete.");
-    return;
+}
+    
+    
+    
+    
+    
+    
+  private void deleteUser() {
+    dbConnect dbc = new dbConnect();
+    Session sess = Session.getInstance();
+    dbConnect connector = new dbConnect();
+
+    int selectedRow = table.getSelectedRow();
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "Please select a user to delete.");
+        return;
+    }
+
+    try {
+        int productId = Integer.parseInt(table.getValueAt(selectedRow, 0).toString());
+
+        int confirm = JOptionPane.showConfirmDialog(this,
+                "Are you sure you want to delete this user?",
+                "Confirm Deletion",
+                JOptionPane.YES_NO_OPTION);
+
+        if (confirm != JOptionPane.YES_OPTION) {
+            return;  // User cancelled deletion
+        }
+
+        // 1. Check if product exists
+        String productQuery = "SELECT p_id, p_name, p_price FROM product WHERE p_id = ?";
+        PreparedStatement pstmt = connector.getConnection().prepareStatement(productQuery);
+        pstmt.setInt(1, productId);
+
+        ResultSet rs = pstmt.executeQuery();
+        if (!rs.next()) {
+            JOptionPane.showMessageDialog(this, "Product not found.");
+            return;
+        }
+
+        String pid = rs.getString("p_id");
+        String pn = rs.getString("p_name");
+        String pr = rs.getString("p_price");
+
+        // 2. Mark product as deleted (build full SQL string for updateData)
+        String updateQuery = "UPDATE product SET p_status = 'Deleted' WHERE p_id = " + pid;
+        dbc.updateData(updateQuery);
+
+        // 3. Get current session user info
+        int sessionUserId = sess.getUid();
+        if (sessionUserId <= 0) {
+            System.out.println("Invalid session user ID. Cannot log deletion.");
+            return;
+        }
+
+        // Assuming the user ID column is named 'uid' (not 'u_id')
+             String userQuery = "SELECT u_id, u_usname FROM users WHERE u_id = ?";
+             String sql = "SELECT u_id, u_usname FROM users"; 
+
+PreparedStatement pstmt2 = connector.getConnection().prepareStatement(userQuery);
+pstmt2.setInt(1, sessionUserId);
+
+ResultSet rs2 = pstmt2.executeQuery();
+ while (rs.next()) {
+            int userId = rs.getInt("u_id");        // use exact column names
+            String username = rs.getString("u_usname");
+             System.out.println("User ID: " + userId + ", Username: " + username);
+        
+
+       
+    // 4. Reload user data on UI
+    loadUsersData();
+
+    // 5. Log the event with valid user ID
+    logEvent(userId, username, "Admin Delete Car: " + pn);
 }
 
-int productId = Integer.parseInt(table.getValueAt(selectedRow, 0).toString());
-int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this user?", "Confirm Deletion", JOptionPane.YES_NO_OPTION);
 
-if (confirm == JOptionPane.YES_OPTION) {
-    try {
-        // Step 1: Get product info
-        String productQuery = "SELECT * FROM product WHERE p_id = ?";
-        PreparedStatement productStmt = connector.getConnection().prepareStatement(productQuery);
-        productStmt.setInt(1, productId);
 
-        ResultSet productRs = productStmt.executeQuery();
+    
 
-        if (productRs.next()) {
-            String pid = productRs.getString("p_id");
-            String pn = productRs.getString("p_name");
-            String pr = productRs.getString("p_price");
-
-            
-            String updateQuery = "UPDATE product SET p_status = 'Deleted' WHERE p_id = ?";
-            PreparedStatement updateStmt = connector.getConnection().prepareStatement(updateQuery);
-            updateStmt.setInt(1, productId);
-            updateStmt.executeUpdate();
-
-           
-            String userQuery = "SELECT * FROM users WHERE u_id = ?";
-            PreparedStatement userStmt = connector.getConnection().prepareStatement(userQuery);
-            userStmt.setInt(1, sess.getUid());
-
-            ResultSet userRs = userStmt.executeQuery();
-
-            if (userRs.next()) {
-                int userId = userRs.getInt("u_id");
-                String username = userRs.getString("u_usname");
-
-                loadUsersData(); // Reload the table
-                logEvent(userId, username, "Admin Deleted Product: " + pn);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Product not found.");
-        }
+        // 4. Reload user data on UI
+       
 
     } catch (SQLException ex) {
-        System.out.println("SQL Exception: " + ex.getMessage());
+        System.out.println("SQL Exception: " + ex);
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(this, "Invalid product ID selected.");
     }
 }
-    }
+
+
     
     
     
@@ -408,7 +442,7 @@ if (confirm == JOptionPane.YES_OPTION) {
         Header = new javax.swing.JPanel();
         add = new javax.swing.JPanel();
         ad = new javax.swing.JLabel();
-        add3 = new javax.swing.JPanel();
+        update = new javax.swing.JPanel();
         ad1 = new javax.swing.JLabel();
         add4 = new javax.swing.JPanel();
         ad2 = new javax.swing.JLabel();
@@ -420,7 +454,6 @@ if (confirm == JOptionPane.YES_OPTION) {
         jLabel22 = new javax.swing.JLabel();
         Remove = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
@@ -440,10 +473,10 @@ if (confirm == JOptionPane.YES_OPTION) {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Main.setBackground(new java.awt.Color(255, 255, 255));
+        Main.setBackground(new java.awt.Color(51, 51, 51));
         Main.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Header.setBackground(new java.awt.Color(255, 255, 255));
+        Header.setBackground(new java.awt.Color(0, 0, 0));
         Header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         add.setBackground(new java.awt.Color(204, 204, 204));
@@ -468,26 +501,26 @@ if (confirm == JOptionPane.YES_OPTION) {
 
         Header.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 100, 30));
 
-        add3.addMouseListener(new java.awt.event.MouseAdapter() {
+        update.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                add3MouseClicked(evt);
+                updateMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                add3MouseEntered(evt);
+                updateMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                add3MouseExited(evt);
+                updateMouseExited(evt);
             }
         });
-        add3.setLayout(null);
+        update.setLayout(null);
 
         ad1.setFont(new java.awt.Font("Bell MT", 0, 12)); // NOI18N
         ad1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ad1.setText("UPDATE");
-        add3.add(ad1);
+        update.add(ad1);
         ad1.setBounds(10, 0, 70, 30);
 
-        Header.add(add3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 100, 30));
+        Header.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 100, 30));
 
         add4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -594,10 +627,6 @@ if (confirm == JOptionPane.YES_OPTION) {
 
         Header.add(Remove, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 60, 90, 30));
 
-        jLabel4.setBackground(new java.awt.Color(0, 51, 255));
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/car-ai.jpg"))); // NOI18N
-        Header.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-730, 0, 1540, 90));
-
         Main.add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 90));
 
         table.setModel(new javax.swing.table.DefaultTableModel(
@@ -700,7 +729,7 @@ if (confirm == JOptionPane.YES_OPTION) {
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/automotive-engineer-augmented-car-design-hologram-removebg-preview.png"))); // NOI18N
-        Main.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, 640, 540));
+        Main.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, 640, 400));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -825,18 +854,18 @@ if (confirm == JOptionPane.YES_OPTION) {
         deleteUser();
     }//GEN-LAST:event_add4MouseClicked
 
-    private void add3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add3MouseExited
-        add3.setBackground(d);
-    }//GEN-LAST:event_add3MouseExited
+    private void updateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseExited
+        update.setBackground(d);
+    }//GEN-LAST:event_updateMouseExited
 
-    private void add3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add3MouseEntered
-        add3.setBackground(h);
-    }//GEN-LAST:event_add3MouseEntered
+    private void updateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseEntered
+        update.setBackground(h);
+    }//GEN-LAST:event_updateMouseEntered
 
-    private void add3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add3MouseClicked
-        String pid = PID.getText();
+    private void updateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseClicked
+         String pid = PID.getText();
         if(pid.isEmpty())
-        {
+        {            
             JOptionPane.showMessageDialog(null, "Please select an Item");
         }else
         {
@@ -863,28 +892,23 @@ if (confirm == JOptionPane.YES_OPTION) {
                 System.out.println("Duplicate Exists");
             } else {
                 try {
-                    System.out.println("1");
                     String query = "SELECT * FROM product WHERE p_id='" + u + "'";
                     ResultSet rs = dbc.getData(query);
                     if (rs.next()) {
-                        System.out.println("2");
 
                         dbc.updateData("UPDATE product SET p_name = '" + mn + "', p_price = '" + p + "', p_quantity = '" + q + "', p_status = '" + s + "', p_image = '" + destination + "' WHERE p_id = '" + u + "'");
 
                         try {
-                            System.out.println("3");
                             String query2 = "SELECT * FROM users WHERE u_id = '" + sess.getUid() + "'";
                             PreparedStatement pstmt = connector.getConnection().prepareStatement(query2);
 
                             ResultSet resultSet = pstmt.executeQuery();
 
                             if (resultSet.next()) {
-                                System.out.println("4");
                                 userId = resultSet.getInt("u_id");   // Update the outer `userId` correctly
                                 uname2 = resultSet.getString("u_usname");
                             }
                         } catch (SQLException ex) {
-                            System.out.println("5");
                             System.out.println("SQL Exception: " + ex);
 
                         }
@@ -892,14 +916,12 @@ if (confirm == JOptionPane.YES_OPTION) {
                         logEvent(userId, uname2, "Admin Updated Car: " + mn);
 
                         if (destination.isEmpty()) {
-                            System.out.println("6");
                             if (oldpath != null) {
                                 File existingFile = new File(oldpath);
                                 if (existingFile.exists()) {
                                     existingFile.delete();
                                 }
                             } else {
-                                System.out.println("⚠️ Warning: oldpath is null, cannot delete.");
                             }
                         } else {
                             if (!(oldpath.equals(path))) {
@@ -908,15 +930,17 @@ if (confirm == JOptionPane.YES_OPTION) {
                         }
 
                         NotShowDeletedUsers();
-                        
+//                        PID.setText("");
+//                        Mname.setText("");
+//                        Price.setText("");
+//                        status.setSelectedItem(0);
                     }
                 } catch (SQLException ex) {
-                    System.out.println("7");
                     System.out.println("" + ex);
                 }
             }
         }
-    }//GEN-LAST:event_add3MouseClicked
+    }//GEN-LAST:event_updateMouseClicked
 
     private void add2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add2MouseExited
         add2.setBackground(d);
@@ -947,15 +971,18 @@ if (confirm == JOptionPane.YES_OPTION) {
     private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
         //        if (addClickable)
         //        {
+         //        if (addClickable)
+        //        {
             dbConnect dbc = new dbConnect();
             Session sess = Session.getInstance();
             dbConnect connector = new dbConnect();
             int userId = 0;
+      
             String uname2 = null;
             String mn = name.getText().trim();
             String pr = Price.getText().trim();
             String q = qnty.getText().trim();
-            String sold = "";
+              int sold = 0;
             String st = status.getSelectedItem().toString().trim();
 
             if (mn.isEmpty() || pr.isEmpty()) {
@@ -987,7 +1014,7 @@ if (confirm == JOptionPane.YES_OPTION) {
 
                         if (resultSet.next())
                         {
-                            userId = resultSet.getInt("u_id");   // Update the outer `userId` correctly
+                            userId = resultSet.getInt("u_id");   // Update the outer userId correctly
                             uname2 = resultSet.getString("u_usname");
                         }
                     } catch (SQLException ex)
@@ -1092,7 +1119,6 @@ if (confirm == JOptionPane.YES_OPTION) {
     private javax.swing.JLabel ad2;
     private javax.swing.JPanel add;
     private javax.swing.JPanel add2;
-    private javax.swing.JPanel add3;
     private javax.swing.JPanel add4;
     public javax.swing.JLabel image;
     private javax.swing.JLabel jLabel1;
@@ -1103,7 +1129,6 @@ if (confirm == JOptionPane.YES_OPTION) {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -1114,5 +1139,6 @@ if (confirm == JOptionPane.YES_OPTION) {
     public javax.swing.JTextField qnty;
     public javax.swing.JComboBox<String> status;
     private javax.swing.JTable table;
+    private javax.swing.JPanel update;
     // End of variables declaration//GEN-END:variables
 }
