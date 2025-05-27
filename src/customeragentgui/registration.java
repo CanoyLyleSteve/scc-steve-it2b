@@ -174,7 +174,7 @@ public class registration extends javax.swing.JFrame {
                 ShowMouseClicked(evt);
             }
         });
-        jPanel3.add(Show, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 300, -1, 20));
+        jPanel3.add(Show, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 290, -1, 30));
 
         password1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         password1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2), "Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 11))); // NOI18N

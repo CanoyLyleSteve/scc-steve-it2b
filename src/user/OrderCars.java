@@ -17,6 +17,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import net.proteanit.sql.DbUtils;
 import config.Session;
+import customeragentgui.login;
 import java.awt.BorderLayout;
 import static java.awt.Color.black;
 import static java.awt.Color.red;
@@ -157,8 +158,8 @@ Qnty.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() 
         }
     }
     
-    
-    
+     
+
     
     
     public boolean duplicateCheck() {
@@ -371,7 +372,7 @@ Qnty.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() 
     }
 
     
-    
+
     
     
      public void logEvent(int userId, String username, String action) {
@@ -480,8 +481,8 @@ try {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Main = new javax.swing.JPanel();
-        Header = new javax.swing.JPanel();
+        c = new javax.swing.JPanel();
+        s = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         Logout = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -502,26 +503,26 @@ try {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Main.setBackground(new java.awt.Color(0, 0, 0));
-        Main.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        c.setBackground(new java.awt.Color(0, 0, 0));
+        c.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Header.setBackground(new java.awt.Color(255, 255, 255));
-        Header.addAncestorListener(new javax.swing.event.AncestorListener() {
+        s.setBackground(new java.awt.Color(255, 255, 255));
+        s.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                HeaderAncestorAdded(evt);
+                sAncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
-        Header.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        s.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setBackground(new java.awt.Color(0, 255, 0));
         jLabel1.setFont(new java.awt.Font("Bell MT", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("CARS ORDERS");
-        Header.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, 320, 40));
+        s.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 30, 320, 40));
 
         Logout.setFont(new java.awt.Font("Bell MT", 1, 18)); // NOI18N
         Logout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -531,9 +532,9 @@ try {
                 LogoutMouseClicked(evt);
             }
         });
-        Header.add(Logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 70, -1, -1));
+        s.add(Logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 70, -1, -1));
 
-        Main.add(Header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 100));
+        c.add(s, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 100));
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -550,13 +551,13 @@ try {
         });
         jScrollPane1.setViewportView(table);
 
-        Main.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 450, 420));
+        c.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 450, 420));
 
         jLabel6.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Price to Pay:");
-        Main.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 230, 100, 30));
+        c.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 230, 100, 30));
 
         Price.setEditable(false);
         Price.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -565,13 +566,13 @@ try {
                 PriceActionPerformed(evt);
             }
         });
-        Main.add(Price, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 230, 140, 30));
+        c.add(Price, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 230, 140, 30));
 
         jLabel7.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Car Name:");
-        Main.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 150, 110, 30));
+        c.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 150, 110, 30));
 
         Cname.setEditable(false);
         Cname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -580,7 +581,7 @@ try {
                 CnameActionPerformed(evt);
             }
         });
-        Main.add(Cname, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 150, 140, 30));
+        c.add(Cname, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 150, 140, 30));
 
         PID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         PID.setEnabled(false);
@@ -589,19 +590,19 @@ try {
                 PIDActionPerformed(evt);
             }
         });
-        Main.add(PID, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 110, 140, 30));
+        c.add(PID, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 110, 140, 30));
 
         jLabel20.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(255, 255, 255));
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel20.setText("Product ID:");
-        Main.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 110, 90, 30));
+        c.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 110, 90, 30));
 
         jLabel8.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Quanity:");
-        Main.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 190, 80, 30));
+        c.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 190, 80, 30));
 
         Qnty.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         Qnty.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -614,13 +615,13 @@ try {
                 QntyActionPerformed(evt);
             }
         });
-        Main.add(Qnty, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 190, 140, 30));
+        c.add(Qnty, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 190, 140, 30));
 
         jLabel9.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Enter Payment:");
-        Main.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 280, 120, 30));
+        c.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 280, 120, 30));
 
         Payment.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         Payment.addActionListener(new java.awt.event.ActionListener() {
@@ -628,7 +629,7 @@ try {
                 PaymentActionPerformed(evt);
             }
         });
-        Main.add(Payment, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 280, 140, 30));
+        c.add(Payment, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 280, 140, 30));
 
         add.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -649,20 +650,20 @@ try {
         add.add(con);
         con.setBounds(0, 0, 100, 30);
 
-        Main.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 410, 100, 30));
+        c.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 410, 100, 30));
 
         paymentTypeBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose Payment", "Cash", "Installment" }));
-        Main.add(paymentTypeBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 320, 140, 30));
+        c.add(paymentTypeBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 320, 140, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Main, javax.swing.GroupLayout.PREFERRED_SIZE, 834, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(c, javax.swing.GroupLayout.PREFERRED_SIZE, 834, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Main, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(c, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -768,7 +769,22 @@ try {
                 if (resultSetProd.next()) {
                     d_qnty = resultSetProd.getLong("p_quantity");
                     sold_qnty = resultSetProd.getLong("p_sold");
+                     String p_status = resultSetProd.getString("p_status");
 
+                    // New validation: prevent order if product is marked as Out of Stock
+                    if (p_status.equalsIgnoreCase("Out of Stock")) {
+                        JOptionPane.showMessageDialog(null, "This product is marked as Out of Stock and cannot be ordered.");
+                        return;
+                    }
+
+                    // Additional validations
+                    if (d_qnty == 0L) {
+                        JOptionPane.showMessageDialog(null, "This product is out of stock.");
+                        return;
+                    } else if (q > d_qnty) {
+                        JOptionPane.showMessageDialog(null, "Requested quantity exceeds available stock.");
+                        return;
+                    }
                     if (d_qnty == 0L) {
                         JOptionPane.showMessageDialog(null, "This product is out of stock.");
                         return;
@@ -943,10 +959,10 @@ try {
         this.dispose();
     }//GEN-LAST:event_LogoutMouseClicked
 
-    private void HeaderAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_HeaderAncestorAdded
+    private void sAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_sAncestorAdded
  
 
-    }//GEN-LAST:event_HeaderAncestorAdded
+    }//GEN-LAST:event_sAncestorAdded
 
     /**
      * @param args the command line arguments
@@ -1016,14 +1032,13 @@ try {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JTextField Cname;
-    private javax.swing.JPanel Header;
     private javax.swing.JLabel Logout;
-    private javax.swing.JPanel Main;
     public javax.swing.JTextField PID;
     public javax.swing.JTextField Payment;
     public javax.swing.JTextField Price;
     public javax.swing.JTextField Qnty;
     private javax.swing.JPanel add;
+    private javax.swing.JPanel c;
     private javax.swing.JLabel con;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel20;
@@ -1033,6 +1048,7 @@ try {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> paymentTypeBox;
+    private javax.swing.JPanel s;
     private javax.swing.JTable table;
     // End of variables declaration//GEN-END:variables
 }

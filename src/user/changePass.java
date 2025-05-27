@@ -152,7 +152,7 @@ public class changePass extends javax.swing.JFrame {
                 jLabel4MouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 250, -1, 20));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 250, -1, 30));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-hide-16.png"))); // NOI18N
         jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -160,7 +160,7 @@ public class changePass extends javax.swing.JFrame {
                 jLabel7MouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 150, -1, 20));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 150, -1, 30));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-hide-16.png"))); // NOI18N
         jLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -168,7 +168,7 @@ public class changePass extends javax.swing.JFrame {
                 jLabel8MouseClicked(evt);
             }
         });
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, -1, 20));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, -1, 30));
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 160, -1, -1));
 
         oldpass.setFont(new java.awt.Font("Bell MT", 0, 11)); // NOI18N

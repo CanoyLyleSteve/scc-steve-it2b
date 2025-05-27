@@ -467,7 +467,7 @@ public class AgentOrderSoldTotal extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(table);
 
-        Main.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 420, 300));
+        Main.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 420, 430));
 
         id.setEditable(false);
         id.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -477,7 +477,7 @@ public class AgentOrderSoldTotal extends javax.swing.JFrame {
                 idActionPerformed(evt);
             }
         });
-        Main.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 150, 30));
+        Main.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 280, 150, 30));
 
         name.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         name.addActionListener(new java.awt.event.ActionListener() {
@@ -485,17 +485,17 @@ public class AgentOrderSoldTotal extends javax.swing.JFrame {
                 nameActionPerformed(evt);
             }
         });
-        Main.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, 150, 30));
+        Main.add(name, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 230, 150, 30));
 
         jLabel20.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel20.setText("Product ID:");
-        Main.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 90, 30));
+        Main.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 280, 90, 30));
 
         jLabel7.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Total: ");
-        Main.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 110, 30));
+        Main.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 330, 110, 30));
 
         logout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -523,7 +523,7 @@ public class AgentOrderSoldTotal extends javax.swing.JFrame {
                 priceActionPerformed(evt);
             }
         });
-        Main.add(price, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 150, 30));
+        Main.add(price, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 380, 150, 30));
 
         totalPrice.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         totalPrice.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -531,17 +531,17 @@ public class AgentOrderSoldTotal extends javax.swing.JFrame {
                 totalPriceMouseClicked(evt);
             }
         });
-        Main.add(totalPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, 150, 30));
+        Main.add(totalPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 330, 150, 30));
 
         jLabel8.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText(" Sold:");
-        Main.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 110, 30));
+        Main.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 230, 110, 30));
 
         jLabel9.setFont(new java.awt.Font("Bell MT", 1, 14)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Price:");
-        Main.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, 110, 30));
+        Main.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 380, 110, 30));
 
         Cash.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         Cash.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -549,7 +549,7 @@ public class AgentOrderSoldTotal extends javax.swing.JFrame {
                 CashMouseClicked(evt);
             }
         });
-        Main.add(Cash, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 140, 150, 30));
+        Main.add(Cash, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 480, 150, 30));
 
         Installment.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         Installment.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -557,7 +557,7 @@ public class AgentOrderSoldTotal extends javax.swing.JFrame {
                 InstallmentMouseClicked(evt);
             }
         });
-        Main.add(Installment, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 90, 150, 30));
+        Main.add(Installment, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 430, 150, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -592,7 +592,7 @@ public class AgentOrderSoldTotal extends javax.swing.JFrame {
     }//GEN-LAST:event_idActionPerformed
 
     private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
- int rowIndex = table.getSelectedRow();
+int rowIndex = table.getSelectedRow();
 String sold = "";
 String pricePerItem = "";
 String paymentTypeValue = "";

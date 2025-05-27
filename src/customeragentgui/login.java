@@ -153,7 +153,7 @@ public static boolean loginAcc(String username, String password) {
                 ShowhidepasswordMouseClicked(evt);
             }
         });
-        nvg.add(Showhidepassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 150, -1, 40));
+        nvg.add(Showhidepassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, -1, 30));
 
         username.setFont(new java.awt.Font("Bell MT", 0, 14)); // NOI18N
         username.setHorizontalAlignment(javax.swing.JTextField.CENTER);

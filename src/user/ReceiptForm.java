@@ -129,10 +129,10 @@ public class ReceiptForm extends javax.swing.JFrame {
 
         area.setColumns(20);
         area.setRows(5);
-        area.setText("------------------------------------------------------------\n                      SALES RECEIPT\n------------------------------------------------------------\n\nDate: [2025-05-26]\nReceipt No: [REC-2025-0001]\n\nCustomer Name : John Doe  \nCustomer Contact : 0912-345-6789  \n\nAgent Name : lyle \nAgent ID : 40\n\n------------------------------------------------------------\nCAR DETAILS:\n------------------------------------------------------------\nCar Model       : Toyota Vios 1.3 XE   \n\n------------------------------------------------------------\nTRANSACTION DETAILS:\n------------------------------------------------------------\nSelling Price   : PHP 750,000.00  \nTotal Amount    : PHP 730,000.00  \n\nPayment Method  : Cash  \nPayment Status  : Paid in Full\n\n------------------------------------------------------------\nThank you for your purchase!\nFor any concerns, contact your agent.\n------------------------------------------------------------\n");
+        area.setText("------------------------------------------------------------\n                      SALES RECEIPT\n------------------------------------------------------------\n\nDate: [2025-05-26]\nReceipt No: [REC-2025-0001]\n\nCustomer Name : Lyle  \nCustomer Contact : 0912-345-6789  \n\nAgent Name : lyle \nAgent ID : 40\n\n------------------------------------------------------------\nCAR DETAILS:\n------------------------------------------------------------\nCar Model       : Toyota Vios 1.3 XE   \n\n------------------------------------------------------------\nTRANSACTION DETAILS:\n------------------------------------------------------------\nSelling Price   : PHP 750,000.00  \nTotal Amount    : PHP 730,000.00  \n\nPayment Method  : Cash  \nPayment Status  : Paid in Full\n\n------------------------------------------------------------\nThank you for your purchase!\nFor any concerns, contact your agent.\n------------------------------------------------------------\n");
         jScrollPane1.setViewportView(area);
 
-        Main.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 370, 440));
+        Main.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 370, 440));
 
         add1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

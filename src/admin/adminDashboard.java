@@ -8,6 +8,7 @@ package admin;
 import config.Session;
 import config.dbConnect;
 import customeragentgui.login;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,9 +16,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -55,13 +61,17 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        displayTotalSold = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         nvg1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        lblTotalSold = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        TotalUsers = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        table = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -151,15 +161,7 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8-logs-folder-24.png"))); // NOI18N
         nvg.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 30, 30));
 
-        displayTotalSold.setText("s");
-        displayTotalSold.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                displayTotalSoldMouseClicked(evt);
-            }
-        });
-        nvg.add(displayTotalSold, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 80, 30));
-
-        getContentPane().add(nvg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 520));
+        getContentPane().add(nvg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 590));
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -171,20 +173,78 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("ADMIN DASHBOARD");
-        nvg1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 200, 50));
+        nvg1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 50));
+
+        jPanel2.setBackground(new java.awt.Color(255, 51, 51));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblTotalSold.setFont(new java.awt.Font("Bell MT", 0, 14)); // NOI18N
+        lblTotalSold.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                lblTotalSoldAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jPanel2.add(lblTotalSold, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 220, 40));
+
+        nvg1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 0, -1, 50));
+
+        jPanel3.setBackground(new java.awt.Color(0, 153, 0));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        TotalUsers.setBackground(new java.awt.Color(255, 255, 255));
+        TotalUsers.setFont(new java.awt.Font("Bell MT", 0, 14)); // NOI18N
+        TotalUsers.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                TotalUsersAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        jPanel3.add(TotalUsers, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 220, 40));
+
+        nvg1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, 230, -1));
 
         jPanel1.add(nvg1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 50));
 
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/reaa.JPG"))); // NOI18N
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 340, 180));
-
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Capture.JPG"))); // NOI18N
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 350, 230, 150));
-
         jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/bbbb.JPG"))); // NOI18N
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, 470, 280));
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, -1, 280));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 0, 690, 520));
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 40, 80, 290));
+
+        table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        table.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                tableAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        table.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(table);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 660, 260));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 660, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -224,25 +284,7 @@ public class adminDashboard extends javax.swing.JFrame {
     }
     
     
-public void displayTotalSoldFromOrders() {
-    double totalSold = 0.0;
-
-    try {
-        dbConnect dbc = new dbConnect();
-        ResultSet rs = dbc.getData("SELECT SUM(o_total) AS o_total FROM orders");
-
-        if (rs.next()) {
-            totalSold = rs.getDouble("o_total");
-        }
-
-        DecimalFormat decimalFormat = new DecimalFormat("#,##0.00");
-        totalSoldField.setText(decimalFormat.format(totalSold)); // Set to your JLabel or JTextField
-
-    } catch (SQLException | NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "Error fetching total sold: " + e.getMessage());
-    }
-}
-private javax.swing.JTextField totalSoldField;
+ 
 
 
 
@@ -269,24 +311,7 @@ private javax.swing.JTextField totalSoldField;
                       
     }//GEN-LAST:event_jLabel2MouseClicked
 
-  /*  public void displayTotalOrders() {
-    double grandTotal = 0.0;
-
-    try {
-        dbConnect dbc = new dbConnect();
-        ResultSet rs = dbc.getData("SELECT o_total FROM orders");
-
-        while (rs.next()) {
-            grandTotal += rs.getDouble("o_total");
-        }
-
-        DecimalFormat df = new DecimalFormat("#,##0.00");
-        totalOrdersField.setText(df.format(grandTotal)); // ✅ Display total (e.g., 1,200.00)
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error fetching total orders: " + e.getMessage());
-    }
-}
-*/
+ 
 
     
     
@@ -324,10 +349,103 @@ private javax.swing.JTextField totalSoldField;
         this.dispose();
     }//GEN-LAST:event_jLabel6MouseClicked
 
-    private void displayTotalSoldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_displayTotalSoldMouseClicked
-    
+    private void lblTotalSoldAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_lblTotalSoldAncestorAdded
+  
+    try {
+        dbConnect dbc = new dbConnect();
+        
+       
+        ResultSet rs = dbc.getData("SELECT COALESCE(SUM(o_total), 0) AS p_sold FROM orders");
 
-    }//GEN-LAST:event_displayTotalSoldMouseClicked
+        if (rs.next()) {
+            BigDecimal totalSold = rs.getBigDecimal("p_sold");
+            String formatted = new DecimalFormat("#,##0.00").format(totalSold);
+
+            // Display the total sales amount with prefix text
+            lblTotalSold.setText("All Total Sold: ₱" + formatted);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+
+
+    }//GEN-LAST:event_lblTotalSoldAncestorAdded
+
+    private void TotalUsersAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_TotalUsersAncestorAdded
+           try {
+        dbConnect dbc = new dbConnect();
+
+        // SQL query to get count of all users
+        String query = "SELECT COUNT(*) AS u_usname FROM users";
+        ResultSet rs = dbc.getData(query);
+
+        if (rs.next()) {
+            int totalUsers = rs.getInt("u_usname");
+
+            // Display total number of all Users in the JLabel with prefix text
+            TotalUsers.setText("All Total Users: " + totalUsers);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+
+        // Show error text if something goes wrong
+        TotalUsers.setText("Error");
+    }
+
+    }//GEN-LAST:event_TotalUsersAncestorAdded
+
+    private void tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMouseClicked
+    
+    }//GEN-LAST:event_tableMouseClicked
+
+    private void tableAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tableAncestorAdded
+         // Create a list to store filtered row data
+    List<Object[]> rowData = new ArrayList<>();
+
+    try {
+        dbConnect dbc = new dbConnect();
+        ResultSet rs = dbc.getData("SELECT * FROM users");
+
+        while (rs.next()) {
+            // Get user details
+            String id = rs.getString("u_id");
+            String fname = rs.getString("u_fname");
+            String lname = rs.getString("u_lname");
+            String email = rs.getString("u_email");
+            String contact = rs.getString("u_contact1");
+            String type = rs.getString("u_ty");
+            String username = rs.getString("u_usname");
+            String status = rs.getString("u_status");
+
+            // Only include users not marked as Deleted
+            if (!status.equalsIgnoreCase("Deleted")) {
+                rowData.add(new Object[]{
+                    id, fname, lname, email, contact, type, username, status
+                });
+            }
+        }
+
+        // Update JTable model on the UI thread
+        SwingUtilities.invokeLater(() -> {
+            DefaultTableModel model = new DefaultTableModel(
+                new String[]{"ID", "First Name", "Last Name", "Email", "Contact", "Type", "Username", "Status"}, 0
+            );
+
+            for (Object[] row : rowData) {
+                model.addRow(row);
+            }
+
+            table.setModel(model);
+            table.repaint(); // Refresh the table
+        });
+
+        rs.close();
+    } catch (SQLException ex) {
+        System.out.println("Error: " + ex.getMessage());
+    }
+
+    }//GEN-LAST:event_tableAncestorAdded
 
     /**
      * @param args the command line arguments
@@ -365,13 +483,11 @@ private javax.swing.JTextField totalSoldField;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel TotalUsers;
     private javax.swing.JLabel acc_lname;
     private javax.swing.JLabel acc_name;
-    private javax.swing.JLabel displayTotalSold;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
@@ -383,8 +499,14 @@ private javax.swing.JTextField totalSoldField;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblTotalSold;
     private javax.swing.JPanel nvg;
     private javax.swing.JPanel nvg1;
+    private javax.swing.JTable table;
     private javax.swing.JLabel users;
     // End of variables declaration//GEN-END:variables
 }

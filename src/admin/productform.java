@@ -169,7 +169,7 @@ public class productform extends javax.swing.JFrame {
         return image;
     }
 
-    public void imageUpdater(String existingFilePath, String newFilePath) {
+  public void imageUpdater(String existingFilePath, String newFilePath) {
         File existingFile = new File(existingFilePath);
         if (existingFile.exists()) {
             String parentDirectory = existingFile.getParent();
@@ -969,86 +969,88 @@ ResultSet rs2 = pstmt2.executeQuery();
     }//GEN-LAST:event_addMouseEntered
 
     private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
-        //        if (addClickable)
-        //        {
-         //        if (addClickable)
-        //        {
-            dbConnect dbc = new dbConnect();
-            Session sess = Session.getInstance();
-            dbConnect connector = new dbConnect();
-            int userId = 0;
-      
-            String uname2 = null;
-            String mn = name.getText().trim();
-            String pr = Price.getText().trim();
-            String q = qnty.getText().trim();
-              int sold = 0;
-            String st = status.getSelectedItem().toString().trim();
+     dbConnect dbc = new dbConnect();
+Session sess = Session.getInstance();
+dbConnect connector = new dbConnect();
+int userId = 0;
 
-            if (mn.isEmpty() || pr.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Please Fill All Boxes");
+String uname2 = null;
+String mn = name.getText().trim();
+String pr = Price.getText().trim();
+String q = qnty.getText().trim();
 
-            } else if (!pr.matches("\\d+(\\.\\d+)?")) {
-                JOptionPane.showMessageDialog(null, "Price must be a valid number (e.g., 12 or 12.99)");
-            } else if (!q.matches("\\d+")) {
-                JOptionPane.showMessageDialog(null, "Quantity Must Only Contain Numbers");
-            } else if (duplicateCheck()) {
-                JOptionPane.showMessageDialog(null, "Duplicate Exists");
-            } else {
-                System.out.println("1");
-                try {
-                    System.out.println("2");
+int sold = 0;
+String st = status.getSelectedItem().toString().trim();
 
-                    if (dbc.insertData("INSERT INTO product (p_name, p_price, p_quantity, p_status, p_image, p_sold) "
-                        + "VALUES ('" + mn + "', '" + pr + "', '" + q + "', '" + st + "', '" + destination + "', '" + sold + "')"))
-                {
-                    System.out.println("3");
+if (mn.isEmpty() || pr.isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Please Fill All Boxes");
 
-                    try
-                    {
-                        System.out.println("4");
-                        String query2 = "SELECT * FROM users WHERE u_id = '" + sess.getUid() + "'";
-                        PreparedStatement pstmt = connector.getConnection().prepareStatement(query2);
+} else if (!pr.matches("\\d+(\\.\\d+)?")) {
+    JOptionPane.showMessageDialog(null, "Price must be a valid number (e.g., 12 or 12.99)");
 
-                        ResultSet resultSet = pstmt.executeQuery();
+} else if (!q.matches("\\d+")) {
+    JOptionPane.showMessageDialog(null, "Quantity Must Only Contain Numbers");
 
-                        if (resultSet.next())
-                        {
-                            userId = resultSet.getInt("u_id");   // Update the outer userId correctly
-                            uname2 = resultSet.getString("u_usname");
-                        }
-                    } catch (SQLException ex)
-                    {
-                        System.out.println("SQL Exception: " + ex);
-                    }
+} else if (duplicateCheck()) {
+    JOptionPane.showMessageDialog(null, "Duplicate Exists");
 
-                    logEvent(userId, uname2, "Admin Added a Car Sales: " + mn);
+} else {
+    try {
+        if (dbc.insertData("INSERT INTO product (p_name, p_price, p_quantity, p_status, p_image, p_sold) "
+                + "VALUES ('" + mn + "', '" + pr + "', '" + q + "', '" + st + "', '" + destination + "', '" + sold + "')"))
+        {
 
-                    if (selectedFile != null && destination != null) {
-                        Files.copy(selectedFile.toPath(), new File(destination).toPath(), StandardCopyOption.REPLACE_EXISTING);
-                    } else {
-                        System.out.println("selectedFile or destination is null!");
-                    }
+        
+            try {
+                String query2 = "SELECT * FROM users WHERE u_id = '" + sess.getUid() + "'";
+                PreparedStatement pstmt = connector.getConnection().prepareStatement(query2);
+                ResultSet resultSet = pstmt.executeQuery();
 
-                    adminDashboard ad = new adminDashboard();
-                    ad.setVisible(true);
-                    this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "An error occured");
-                    //                        System.out.println("Dan, Error occured in line: 757, productForm");
-                    adminDashboard ad = new adminDashboard();
-                    ad.setVisible(true);
-                    this.dispose();
+                if (resultSet.next()) {
+                    userId = resultSet.getInt("u_id");
+                    uname2 = resultSet.getString("u_usname");
                 }
-                //                }
-        } catch (IOException ex) {
-            System.out.println("" + ex);
+            } catch (SQLException ex) {
+                System.out.println("SQL Exception: " + ex);
+            }
+
+            logEvent(userId, uname2, "Admin Added a Car Sales: " + mn);
+
+       
+            if (selectedFile != null && destination != null) {
+                File destFile = new File(destination);
+                File destDir = destFile.getParentFile();
+
+                if (!destDir.exists()) {
+                    destDir.mkdirs(); 
+                }
+
+                if (selectedFile.exists()) {
+                    Files.copy(selectedFile.toPath(), destFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    System.out.println("Image copied successfully.");
+                } else {
+                    System.out.println("Selected image file does not exist: " + selectedFile.getPath());
+                }
+            } else {
+                System.out.println("selectedFile or destination is null!");
+            }
+
+            
+            adminDashboard ad = new adminDashboard();
+            ad.setVisible(true);
+            this.dispose();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "An error occurred");
+            adminDashboard ad = new adminDashboard();
+            ad.setVisible(true);
+            this.dispose();
         }
-        }
-        //        }else if (!addClickable)
-        //        {
-            //            JOptionPane.showMessageDialog(null, "Clear the Fields First");
-            //        }
+    } catch (IOException ex) {
+        System.out.println("Image copy failed: " + ex.getMessage());
+    }
+
+}
     }//GEN-LAST:event_addMouseClicked
 
     private void logoutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseExited
